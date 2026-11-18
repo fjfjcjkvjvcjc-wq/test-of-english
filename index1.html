@@ -305,111 +305,6 @@
             transition: width 0.3s ease;
         }
 
-        /* Quick Navigation Dots */
-        .question-dots {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 20px;
-            padding: 12px;
-            background: var(--bg-main);
-            border-radius: 12px;
-        }
-
-        .q-dot {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: #fff;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .q-dot.answered {
-            background-color: #dbeafe;
-            border-color: #93c5fd;
-            color: var(--primary);
-        }
-
-        .q-dot.active {
-            background-color: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        /* Reading Passage Box & Toggle Button */
-        .passage-wrapper {
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .passage-toggle-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 100%);
-            color: var(--primary);
-            border: 2px solid #c7d2fe;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .passage-toggle-btn:hover {
-            border-color: var(--primary);
-            background: #e0e7ff;
-        }
-
-        .passage-content {
-            display: none;
-            direction: ltr;
-            text-align: left;
-            background: #f8fafc;
-            border: 2px solid #c7d2fe;
-            border-top: none;
-            border-radius: 0 0 12px 12px;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1.02rem;
-            line-height: 1.75;
-            color: #1e293b;
-            max-height: 280px;
-            overflow-y: auto;
-            animation: fadeIn 0.25s ease;
-        }
-
-        .passage-content.open {
-            display: block;
-        }
-
-        .passage-toggle-btn.open {
-            border-radius: 12px 12px 0 0;
-        }
-
-        .passage-content h4 {
-            color: var(--primary);
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #cbd5e1;
-            padding-bottom: 6px;
-        }
-
-        .passage-content p {
-            margin-bottom: 10px;
-        }
-
         /* Question Card (LTR for English Content) */
         .question-box {
             background: #fff;
@@ -480,6 +375,46 @@
         .option-item.selected .option-letter {
             background: var(--primary);
             color: #fff;
+        }
+
+        /* Quick Navigation Dots */
+        .question-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: var(--bg-main);
+            border-radius: 12px;
+        }
+
+        .q-dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .q-dot.answered {
+            background-color: #dbeafe;
+            border-color: #93c5fd;
+            color: var(--primary);
+        }
+
+        .q-dot.active {
+            background-color: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: scale(1.1);
         }
 
         /* Quiz Controls */
@@ -732,7 +667,7 @@
                 </div>
                 <div class="exam-card" data-exam="3">
                     <h3>الاختبار الثالث</h3>
-                    <p>المصطلحات التقنية وقطع الفهم (مع عرض القطعة)</p>
+                    <p>المصطلحات التقنية (AI & Security) وقطع الفهم</p>
                     <span>20 سؤالاً</span>
                 </div>
             </div>
@@ -765,15 +700,6 @@
         </div>
 
         <div class="question-dots" id="question-dots"></div>
-
-        <!-- صندوق قطعة الفهم القابل للفتح والطي -->
-        <div class="passage-wrapper" id="passage-wrapper">
-            <button type="button" class="passage-toggle-btn" id="passage-toggle-btn">
-                <span id="passage-btn-label">📖 اضغط هنا لعرض قطعة الفهم (Reading Passage)</span>
-                <span id="passage-arrow">▼</span>
-            </button>
-            <div class="passage-content" id="passage-content"></div>
-        </div>
 
         <div class="question-box">
             <div class="question-text" id="question-text"></div>
@@ -840,50 +766,6 @@
 <script>
     // رابط Google Apps Script لاستقبال النتائج تلقائياً
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMSDOpWMcg_ACxVj_OvPhoD_bbE_YeCURkhOJrfSf47umVSXis-yqhEYbe2kg-SNmm/exec";
-
-    // نصوص قطع الفهم الأربع من المقرر
-    const readingPassages = {
-        p1: {
-            title: "Passage 1: University Study Skills",
-            html: `
-                <h4>Passage 1: University Study Skills</h4>
-                <p>University life is very different from school life. At university, students are expected to become independent learners who can manage their time, organize their study materials, and take responsibility for their academic progress. Lecturers usually provide guidance, but they do not follow students step by step.</p>
-                <p>One of the most important skills university students need is time management. Many students struggle because they do not plan their day properly. Attending lectures, preparing assignments, reading academic texts, and revising for exams all require careful planning. Students who create a weekly study schedule often perform better academically.</p>
-                <p>Another essential skill is academic reading. University textbooks and research articles are usually long and complex. Students should learn how to skim for main ideas and scan for specific information instead of reading every word. Taking notes while reading also helps students understand and remember information more effectively.</p>
-                <p>Finally, successful university students know how to ask for help when needed. They may consult their lecturers during office hours, discuss difficult topics with classmates, or use online academic resources. These strategies help students overcome challenges and achieve academic success.</p>
-            `
-        },
-        p2: {
-            title: "Passage 2: Group Work at University",
-            html: `
-                <h4>Passage 2: Group Work at University</h4>
-                <p>Group work is a common learning activity at university. Many courses require students to work together on projects, presentations, or research tasks. This type of work helps students develop both academic and social skills that are important for their future careers.</p>
-                <p>One advantage of group work is that students can share ideas and knowledge. Each member may have different strengths, such as writing, research, or presentation skills. By working together, students can produce higher-quality work than they might achieve individually.</p>
-                <p>However, group work can also be challenging. Some students may not contribute equally, while others may dominate discussions. To overcome these problems, clear communication and role distribution are essential. Setting deadlines and responsibilities at the beginning of the project can help ensure fairness.</p>
-                <p>Despite its challenges, group work prepares students for the workplace. Most professional environments require teamwork, cooperation, and problem-solving. Therefore, learning how to work effectively in a group at university is a valuable experience.</p>
-            `
-        },
-        p3: {
-            title: "Passage 3: Technology in University Learning",
-            html: `
-                <h4>Passage 3: Technology in University Learning</h4>
-                <p>Technology has become an essential part of university education. Many students rely on digital tools such as laptops, tablets, and smartphones to access learning materials and complete assignments. Online platforms allow students to download lecture notes, submit coursework, and communicate with their lecturers.</p>
-                <p>One major advantage of technology is flexibility. Students can study at their own pace and review recorded lectures whenever they need. This is especially helpful for students who work part-time or have other responsibilities.</p>
-                <p>However, technology also presents challenges. Some students may become distracted by social media or online entertainment during study time. In addition, technical problems such as poor internet connection can affect learning.</p>
-                <p>To benefit fully from technology, students need to use it responsibly. Developing digital literacy skills helps students evaluate online sources, manage their time effectively, and maintain academic integrity.</p>
-            `
-        },
-        p4: {
-            title: "Passage 4: Choosing a Career Path",
-            html: `
-                <h4>Passage 4: Choosing a Career Path</h4>
-                <p>Choosing a career path is one of the most important decisions university students face. Many students feel uncertain about their future, especially when they are close to graduation. They may worry about job opportunities, income, and personal satisfaction.</p>
-                <p>Some students choose their career based on their field of study, while others prefer to explore different options. Internships and part-time jobs can help students gain practical experience and understand the demands of the job market. Career guidance centers at universities also play a key role in helping students make informed decisions.</p>
-                <p>It is important for students to consider their skills, interests, and values when choosing a career. A job that matches a student's abilities and personality is more likely to lead to long-term success. Financial factors are important, but they should not be the only consideration.</p>
-                <p>In today's changing job market, flexibility is essential. Many graduates may change their career path several times during their lives. Therefore, developing transferable skills such as communication, problem-solving, and adaptability is crucial.</p>
-            `
-        }
-    };
 
     // بنك الأسئلة الكامل (60 سؤالاً من مقرر اللغة الإنجليزية UR018)
     const questionBank = {
@@ -1244,7 +1126,6 @@
             },
             {
                 id: 51,
-                passageId: "p1",
                 q: "Q11: (Passage 1 - University Study Skills) Skimming helps students to:",
                 options: ["Get main ideas", "Memorize every word", "Find grammar mistakes", "Translate texts"],
                 answer: "Get main ideas",
@@ -1252,7 +1133,6 @@
             },
             {
                 id: 52,
-                passageId: "p1",
                 q: "Q12: (Passage 1 - University Study Skills) University students are expected to:",
                 options: ["Be independent learners", "Depend completely on lecturers", "Study only before exams", "Avoid academic reading"],
                 answer: "Be independent learners",
@@ -1260,7 +1140,6 @@
             },
             {
                 id: 53,
-                passageId: "p2",
                 q: "Q13: (Passage 2 - Group Work) A challenge of group work mentioned in the text is:",
                 options: ["Unequal contribution", "Too much time", "Easy tasks", "No deadlines"],
                 answer: "Unequal contribution",
@@ -1268,7 +1147,6 @@
             },
             {
                 id: 54,
-                passageId: "p2",
                 q: "Q14: (Passage 2 - Group Work) Setting roles at the beginning of a project helps to:",
                 options: ["Ensure fairness", "Confuse members", "Reduce quality", "Delay work"],
                 answer: "Ensure fairness",
@@ -1276,7 +1154,6 @@
             },
             {
                 id: 55,
-                passageId: "p3",
                 q: "Q15: (Passage 3 - Technology in Learning) Digital literacy helps students to:",
                 options: ["Evaluate online sources", "Waste time", "Avoid technology", "Ignore rules"],
                 answer: "Evaluate online sources",
@@ -1284,7 +1161,6 @@
             },
             {
                 id: 56,
-                passageId: "p3",
                 q: "Q16: (Passage 3 - Technology in Learning) Academic integrity refers to:",
                 options: ["Honesty in study", "Cheating", "Speed of learning", "Online access"],
                 answer: "Honesty in study",
@@ -1292,7 +1168,6 @@
             },
             {
                 id: 57,
-                passageId: "p4",
                 q: "Q17: (Passage 4 - Career Path) Internships help students to:",
                 options: ["Gain practical experience", "Avoid work", "Earn high salaries", "Skip university"],
                 answer: "Gain practical experience",
@@ -1300,7 +1175,6 @@
             },
             {
                 id: 58,
-                passageId: "p4",
                 q: "Q18: (Passage 4 - Career Path) Transferable skills include:",
                 options: ["Communication", "Memorization", "Sleeping", "Copying"],
                 answer: "Communication",
@@ -1330,9 +1204,8 @@
     let userAnswers = {};
     let currentIndex = 0;
     let timerInterval = null;
-    let timeRemaining = 20 * 60;
+    let timeRemaining = 20 * 60; // 20 دقيقة بالثواني
     const TOTAL_TIME = 20 * 60;
-    let isPassageOpen = false;
 
     // عناصر الواجهة
     const startView = document.getElementById("start-view");
@@ -1356,13 +1229,6 @@
     const questionTextEl = document.getElementById("question-text");
     const optionsListEl = document.getElementById("options-list");
 
-    // عناصر قطعة الفهم
-    const passageWrapper = document.getElementById("passage-wrapper");
-    const passageToggleBtn = document.getElementById("passage-toggle-btn");
-    const passageBtnLabel = document.getElementById("passage-btn-label");
-    const passageArrow = document.getElementById("passage-arrow");
-    const passageContent = document.getElementById("passage-content");
-
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const submitBtn = document.getElementById("submit-btn");
@@ -1372,27 +1238,7 @@
     const confirmNo = document.getElementById("confirm-no");
     const restartBtn = document.getElementById("restart-btn");
 
-    // زر فتح وإغلاق قطعة الفهم
-    passageToggleBtn.addEventListener("click", () => {
-        isPassageOpen = !isPassageOpen;
-        updatePassageVisibility();
-    });
-
-    function updatePassageVisibility() {
-        if (isPassageOpen) {
-            passageContent.classList.add("open");
-            passageToggleBtn.classList.add("open");
-            passageBtnLabel.textContent = "📕 اضغط هنا لإخفاء قطعة الفهم";
-            passageArrow.textContent = "▲";
-        } else {
-            passageContent.classList.remove("open");
-            passageToggleBtn.classList.remove("open");
-            passageBtnLabel.textContent = "📖 اضغط هنا لعرض قطعة الفهم (Reading Passage)";
-            passageArrow.textContent = "▼";
-        }
-    }
-
-    // دالة خلط المصفوفات عشوائياً
+    // دالة خلط المصفوفات عشوائياً (Fisher-Yates Shuffle)
     function shuffleArray(array) {
         const arr = [...array];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -1446,7 +1292,6 @@
         userAnswers = {};
         currentIndex = 0;
         timeRemaining = TOTAL_TIME;
-        isPassageOpen = false;
 
         displayNameEl.textContent = studentName;
         const examNames = {
@@ -1513,20 +1358,11 @@
         });
     }
 
-    // عرض السؤال الحالي وقطعة الفهم المرتبطة به إن وجدت
+    // عرض السؤال الحالي
     function renderQuestion() {
         const qObj = currentQuestions[currentIndex];
         const cleanQuestionText = qObj.q.replace(/^Q\d+:\s*/i, "");
         questionTextEl.textContent = `${currentIndex + 1}. ${cleanQuestionText}`;
-
-        // إظهار أو إخفاء زر قطعة الفهم حسب السؤال الحالي
-        if (qObj.passageId && readingPassages[qObj.passageId]) {
-            passageWrapper.style.display = "block";
-            passageContent.innerHTML = readingPassages[qObj.passageId].html;
-            updatePassageVisibility();
-        } else {
-            passageWrapper.style.display = "none";
-        }
 
         const letters = ["A", "B", "C", "D"];
         optionsListEl.innerHTML = "";
