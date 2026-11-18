@@ -3,23 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الاختبارات الإلكترونية - رياضيات Zero (المتجهات)</title>
+    <title>منصة الاختبارات الإلكترونية - اللغة الإنجليزية (English - UR018)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- مكتبة MathJax لعرض المعادلات والرموز الرياضية بدقة -->
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: { fontCache: 'global' }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-
     <style>
         :root {
             --primary: #4f46e5;
@@ -133,7 +120,7 @@
 
         .exams-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 16px;
             margin-bottom: 28px;
         }
@@ -141,7 +128,7 @@
         .exam-card {
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            padding: 20px;
+            padding: 22px;
             text-align: center;
             cursor: pointer;
             transition: all 0.25s ease;
@@ -161,13 +148,13 @@
         }
 
         .exam-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--primary);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .exam-card p {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
         }
 
@@ -176,9 +163,9 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             background: var(--bg-main);
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .exam-card.selected span {
@@ -314,11 +301,11 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 10%;
+            width: 5%;
             transition: width 0.3s ease;
         }
 
-        /* Question Card (RTL for Arabic Math Content) */
+        /* Question Card & Passage Box (LTR for English Content) */
         .question-box {
             background: #fff;
             border: 1px solid var(--border-color);
@@ -327,22 +314,56 @@
             margin-bottom: 24px;
         }
 
+        .passage-container {
+            display: none;
+            direction: ltr;
+            text-align: left;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .passage-container.visible {
+            display: block;
+        }
+
+        .passage-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .passage-body {
+            font-size: 0.98rem;
+            color: #334155;
+            line-height: 1.75;
+            white-space: pre-line;
+        }
+
         .question-text {
-            direction: rtl;
-            text-align: right;
+            direction: ltr;
+            text-align: left;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-dark);
             margin-bottom: 20px;
-            line-height: 1.8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
         }
 
         .options-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            direction: rtl;
-            text-align: right;
+            direction: ltr;
+            text-align: left;
         }
 
         .option-item {
@@ -354,8 +375,9 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.05rem;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .option-item:hover {
@@ -524,13 +546,13 @@
         }
 
         .mistake-q {
-            direction: rtl;
-            text-align: right;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
             font-weight: 700;
             font-size: 1.1rem;
             margin-bottom: 14px;
             color: var(--text-dark);
-            line-height: 1.7;
         }
 
         .answer-row {
@@ -555,10 +577,11 @@
             color: #065f46;
         }
 
-        .answer-text-math {
-            direction: rtl;
-            text-align: right;
-            font-weight: 700;
+        .answer-text-en {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
         }
 
         .explanation-box {
@@ -566,10 +589,9 @@
             padding: 12px 16px;
             border-radius: 8px;
             margin-top: 10px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: #334155;
             border-right: 3px solid var(--secondary);
-            line-height: 1.7;
         }
 
         .perfect-score-box {
@@ -652,7 +674,7 @@
 <div class="container">
     <header class="app-header">
         <h1>منصة الاختبارات الإلكترونية الذكية</h1>
-        <p>مقرر رياضيات Zero (المتجهات) - كلية الحاسبات والذكاء الاصطناعي بسوهاج</p>
+        <p>مقرر اللغة الإنجليزية للحاسبات والذكاء الاصطناعي (English - UR018)</p>
     </header>
 
     <!-- 1. Start View -->
@@ -664,25 +686,20 @@
         </div>
 
         <div class="form-group">
-            <label>اختر نموذج الاختبار المطلوب (10 أسئلة / 15 دقيقة لكل اختبار):</label>
+            <label>اختر نموذج الاختبار المطلوب:</label>
             <div class="exams-grid">
                 <div class="exam-card" data-exam="1">
                     <h3>الاختبار الأول</h3>
-                    <p>أساسيات المتجهات والضرب القياسي والاتجاهي (من أسئلة الامتحان)</p>
-                    <span>10 أسئلة</span>
+                    <p>قواعد Either & Neither بجميع حالاتها وتطبيقاتها</p>
+                    <span>20 سؤالاً / 20 دقيقة</span>
                 </div>
                 <div class="exam-card" data-exam="2">
                     <h3>الاختبار الثاني</h3>
-                    <p>تطبيقات الضرب الثلاثي القياسي والمتجه العمودي (من التكليف الأول)</p>
-                    <span>10 أسئلة</span>
-                </div>
-                <div class="exam-card" data-exam="3">
-                    <h3>الاختبار الثالث</h3>
-                    <p>مراجعة شاملة وتدريبات إضافية بنفس أسلوب الامتحان والتكليف</p>
-                    <span>10 أسئلة</span>
+                    <p>قطع الفهم (Reading Passages) والمصطلحات التقنية</p>
+                    <span>25 سؤالاً / 25 دقيقة</span>
                 </div>
             </div>
-            <div id="exam-error" class="error-msg">يرجى اختيار أحد الاختبارات الثلاثة للمتابعة.</div>
+            <div id="exam-error" class="error-msg">يرجى اختيار أحد الاختبارين للمتابعة.</div>
         </div>
 
         <button id="start-btn" class="btn btn-primary">ابدأ الاختبار الآن</button>
@@ -696,14 +713,14 @@
             </div>
             <div class="timer-box" id="timer-box">
                 <span>⏱ الوقت المتبقي:</span>
-                <span id="timer-display">15:00</span>
+                <span id="timer-display">20:00</span>
             </div>
         </div>
 
         <div class="progress-wrapper">
             <div class="progress-info">
-                <span>السؤال <span id="current-q-num">1</span> من <span id="total-q-num">10</span></span>
-                <span>تمت الإجابة على: <span id="answered-count">0</span> / <span id="total-q-num-2">10</span></span>
+                <span>السؤال <span id="current-q-num">1</span> من <span id="total-q-num">20</span></span>
+                <span>تمت الإجابة على: <span id="answered-count">0</span> / <span id="total-q-num-2">20</span></span>
             </div>
             <div class="progress-track">
                 <div class="progress-fill" id="progress-fill"></div>
@@ -713,6 +730,12 @@
         <div class="question-dots" id="question-dots"></div>
 
         <div class="question-box">
+            <!-- صندوق عرض قطعة الفهم إن وجدت -->
+            <div class="passage-container" id="passage-container">
+                <div class="passage-title" id="passage-title"></div>
+                <div class="passage-body" id="passage-body"></div>
+            </div>
+
             <div class="question-text" id="question-text"></div>
             <div class="options-list" id="options-list"></div>
         </div>
@@ -732,7 +755,7 @@
             <div id="pass-fail-badge" class="status-badge"></div>
             <h2 id="result-student-name" style="margin-bottom: 6px;"></h2>
             <p id="result-exam-name" style="color: var(--text-muted);"></p>
-            <div class="score-circle"><span id="final-score">0</span> / <span id="result-total-q">10</span></div>
+            <div class="score-circle"><span id="final-score">0</span> / <span id="result-total-q">20</span></div>
             <p style="font-weight: 700; font-size: 1.2rem; color: var(--primary);">
                 النسبة المئوية: <span id="final-percentage">0%</span>
             </p>
@@ -778,222 +801,374 @@
     // رابط Google Apps Script لاستقبال النتائج تلقائياً
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMSDOpWMcg_ACxVj_OvPhoD_bbE_YeCURkhOJrfSf47umVSXis-yqhEYbe2kg-SNmm/exec";
 
-    // بنك الأسئلة الشامل (30 سؤالاً مقسمة على 3 نماذج بنفس أسلوب ملف الامتحان والتكليف)
+    // نصوص قطع الفهم الأربعة من المقرر الدراسي
+    const passagesData = {
+        p1: {
+            title: "Passage 1: University Study Skills",
+            text: "University life is very different from school life. At university, students are expected to become independent learners who can manage their time, organize their study materials, and take responsibility for their academic progress. Lecturers usually provide guidance, but they do not follow students step by step.\nOne of the most important skills university students need is time management. Many students struggle because they do not plan their day properly. Attending lectures, preparing assignments, reading academic texts, and revising for exams all require careful planning. Students who create a weekly study schedule often perform better academically.\nAnother essential skill is academic reading. University textbooks and research articles are usually long and complex. Students should learn how to skim for main ideas and scan for specific information instead of reading every word. Taking notes while reading also helps students understand and remember information more effectively.\nFinally, successful university students know how to ask for help when needed. They may consult their lecturers during office hours, discuss difficult topics with classmates, or use online academic resources. These strategies help students overcome challenges and achieve academic success."
+        },
+        p2: {
+            title: "Passage 2: Group Work at University",
+            text: "Group work is a common learning activity at university. Many courses require students to work together on projects, presentations, or research tasks. This type of work helps students develop both academic and social skills that are important for their future careers.\nOne advantage of group work is that students can share ideas and knowledge. Each member may have different strengths, such as writing, research, or presentation skills. By working together, students can produce higher-quality work than they might achieve individually.\nHowever, group work can also be challenging. Some students may not contribute equally, while others may dominate discussions. To overcome these problems, clear communication and role distribution are essential. Setting deadlines and responsibilities at the beginning of the project can help ensure fairness.\nDespite its challenges, group work prepares students for the workplace. Most professional environments require teamwork, cooperation, and problem-solving. Therefore, learning how to work effectively in a group at university is a valuable experience."
+        },
+        p3: {
+            title: "Passage 3: Technology in University Learning",
+            text: "Technology has become an essential part of university education. Many students rely on digital tools such as laptops, tablets, and smartphones to access learning materials and complete assignments. Online platforms allow students to download lecture notes, submit coursework, and communicate with their lecturers.\nOne major advantage of technology is flexibility. Students can study at their own pace and review recorded lectures whenever they need. This is especially helpful for students who work part-time or have other responsibilities.\nHowever, technology also presents challenges. Some students may become distracted by social media or online entertainment during study time. In addition, technical problems such as poor internet connection can affect learning.\nTo benefit fully from technology, students need to use it responsibly. Developing digital literacy skills helps students evaluate online sources, manage their time effectively, and maintain academic integrity."
+        },
+        p4: {
+            title: "Passage 4: Choosing a Career Path",
+            text: "Choosing a career path is one of the most important decisions university students face. Many students feel uncertain about their future, especially when they are close to graduation. They may worry about job opportunities, income, and personal satisfaction.\nSome students choose their career based on their field of study, while others prefer to explore different options. Internships and part-time jobs can help students gain practical experience and understand the demands of the job market. Career guidance centers at universities also play a key role in helping students make informed decisions.\nIt is important for students to consider their skills, interests, and values when choosing a career. A job that matches a student's abilities and personality is more likely to lead to long-term success. Financial factors are important, but they should not be the only consideration.\nIn today's changing job market, flexibility is essential. Many graduates may change their career path several times during their lives. Therefore, developing transferable skills such as communication, problem-solving, and adaptability is crucial."
+        }
+    };
+
+    // بنك الأسئلة المعتمد (الاختبار الأول: Either/Neither، الاختبار الثاني: Passages & Tech Terms)
     const questionBank = {
         1: [
             {
                 id: 1,
-                q: "يقال للمتجهين أنهما متساويان إذا كان لهما نفس:",
-                options: ["المقدار والاتجاه", "المقدار فقط", "الاتجاه فقط", "خلاف ذلك"],
-                answer: "المقدار والاتجاه",
-                explanation: "يتساوى المتجهان هندسياً وجبرياً إذا كان لهما نفس المقدار (الطول) ونفس الاتجاه."
+                q: "Q1: You can _____ buy RAM or an SSD.",
+                options: ["either", "neither", "both", "nor"],
+                answer: "either",
+                explanation: "نستخدم تركيب (either ... or) للتخيير الإيجابي بين بديلين."
             },
             {
                 id: 2,
-                q: "المتجه $\\vec{A} = 3\\vec{i} + 4\\vec{j}$ يقع في:",
-                options: ["المستوى", "الفراغ", "خط مستقيم", "خلاف ذلك"],
-                answer: "المستوى",
-                explanation: "بما أن المتجه يحتوي على مركبتين فقط ($\\vec{i}, \\vec{j}$) في بعدين ($x, y$)، فإنه يقع في المستوى (2D)."
+                q: "Q2: Either of the laptops _____ algorithms fast.",
+                options: ["runs", "run", "running", "are running"],
+                answer: "runs",
+                explanation: "بعد (Either of + اسم جمع) يأتي الفعل دائماً في صيغة المفرد (runs) لأن المقصود هو أحد الجهازين فقط."
             },
             {
                 id: 3,
-                q: "قيمة المقدار $(\\vec{a} \\wedge \\vec{b}) \\cdot (\\vec{a} \\wedge \\vec{b}) + (\\vec{a} \\cdot \\vec{b})(\\vec{a} \\cdot \\vec{b}) = \\dots$",
-                options: ["$a^2 b^2$", "$a^3 b^3$", "$ab$", "$a^2 b$"],
-                answer: "$a^2 b^2$",
-                explanation: "متطابقة لاجرانج: $|\\vec{a} \\wedge \\vec{b}|^2 + (\\vec{a} \\cdot \\vec{b})^2 = a^2 b^2 \\sin^2\\theta + a^2 b^2 \\cos^2\\theta = a^2 b^2 (\\sin^2\\theta + \\cos^2\\theta) = a^2 b^2$."
+                q: "Q3: A: I don't like slow CPUs. B: I don't like them _____.",
+                options: ["either", "neither", "too", "also"],
+                answer: "either",
+                explanation: "للموافقة على جملة منفية في نهاية الجملة نستخدم (either) ولا نستخدم (too)."
             },
             {
                 id: 4,
-                q: "المتجه $\\vec{j}$ هو وحدة المتجه في الاتجاه الموجب لمحور:",
-                options: ["$y$", "$x$", "$z$", "خلاف ذلك"],
-                answer: "$y$",
-                explanation: "متجهات الوحدة الأساسية هي $\\vec{i}$ لمحور $x$، و $\\vec{j}$ لمحور $y$، و $\\vec{k}$ لمحور $z$."
+                q: "Q4: Install either an antivirus _____ a firewall.",
+                options: ["or", "nor", "and", "but"],
+                answer: "or",
+                explanation: "أداة الربط التي تكمل (either) هي (or)."
             },
             {
                 id: 5,
-                q: "المتجه $\\vec{A} = (4, \\frac{\\pi}{4})$ في الصورة القطبية يمكن أن يكتب في الصورة الكارتيزية:",
-                options: ["$(2\\sqrt{2}, 2\\sqrt{2})$", "$(2\\sqrt{2}, 0)$", "$(0, 2\\sqrt{2})$", "خلاف ذلك"],
-                answer: "$(2\\sqrt{2}, 2\\sqrt{2})$",
-                explanation: "$x = r\\cos\\theta = 4\\cos(\\frac{\\pi}{4}) = 4 \\times \\frac{\\sqrt{2}}{2} = 2\\sqrt{2}$، وكذلك $y = 4\\sin(\\frac{\\pi}{4}) = 2\\sqrt{2}$."
+                q: "Q5: Either of the tools _____ phishing.",
+                options: ["blocks", "block", "blocking", "have blocked"],
+                answer: "blocks",
+                explanation: "التركيب (Either of + plural noun) يتبعه فعل مفرد (blocks)."
             },
             {
                 id: 6,
-                q: "الضرب القياسي للمتجهين $\\vec{A}$ و $\\vec{B}$ يُعطى بالعلاقة:",
-                options: ["$\\vec{A} \\cdot \\vec{B} = AB \\cos\\theta$", "$\\vec{A} \\cdot \\vec{B} = AB \\sin\\theta$", "$\\vec{A} \\cdot \\vec{B} = AB \\tan\\theta$", "خلاف ذلك"],
-                answer: "$\\vec{A} \\cdot \\vec{B} = AB \\cos\\theta$",
-                explanation: "تعريف الضرب القياسي (Dot Product) هو حاصل ضرب مقداري المتجهين في جيب تمام الزاوية المحصورة بينهما ($AB\\cos\\theta$)."
+                q: "Q6: I like neither vague _____ short prompts.",
+                options: ["nor", "or", "and", "neither"],
+                answer: "nor",
+                explanation: "نستخدم (neither ... nor) لنفي البديلين معاً."
             },
             {
                 id: 7,
-                q: "جيب تمام الزاوية ($\\cos\\theta$) بين المتجهين $\\vec{a} = 2\\vec{i} + \\vec{j} + 3\\vec{k}$ و $\\vec{b} = \\vec{i} - 3\\vec{j} + 2\\vec{k}$ يساوي:",
-                options: ["$\\frac{5}{14}$", "$\\frac{4}{\\sqrt{14}}$", "$\\frac{5}{\\sqrt{14}}$", "خلاف ذلك"],
-                answer: "$\\frac{5}{14}$",
-                explanation: "$\\vec{a}\\cdot\\vec{b} = (2)(1) + (1)(-3) + (3)(2) = 2 - 3 + 6 = 5$. وطول كل متجه $|\\vec{a}| = \\sqrt{4+1+9} = \\sqrt{14}$ و $|\\vec{b}| = \\sqrt{1+9+4} = \\sqrt{14}$، إذن $\\cos\\theta = \\frac{5}{\\sqrt{14}\\cdot\\sqrt{14}} = \\frac{5}{14}$."
+                q: "Q7: Neither of the examples _____ coders.",
+                options: ["helps", "help", "helping", "are helping"],
+                answer: "helps",
+                explanation: "بعد (Neither of + اسم جمع) يأتي الفعل مفرداً (helps) في اللغة الإنجليزية القياسية."
             },
             {
                 id: 8,
-                q: "إذا كان $\\underline{A} = 5\\underline{k}$ و $\\underline{B} = 2\\underline{i}$ فإن مقدار حاصل الضرب الاتجاهي $|\\underline{A} \\wedge \\underline{B}|$ يعطي:",
-                options: ["$10$", "$-10\\vec{j}$", "$10\\vec{j}$", "خلاف ذلك"],
-                answer: "$10$",
-                explanation: "لاحظ السؤال يطلب (مقدار) حاصل الضرب: $\\underline{A} \\wedge \\underline{B} = (5\\underline{k}) \\wedge (2\\underline{i}) = 10(\\underline{k} \\wedge \\underline{i}) = 10\\underline{j}$، ومقداره القياسي يساوي $10$."
+                q: "Q8: A: I don't like bad prompts. B: _____ do I.",
+                options: ["Neither", "Either", "So", "Too"],
+                answer: "Neither",
+                explanation: "للموافقة المختصرة على جملة منفية نستخدم (Neither + فعل مساعد + فاعل) مثل: Neither do I."
             },
             {
                 id: 9,
-                q: "إذا كان $\\underline{A} = 2\\underline{k}$ و $\\underline{B} = 15\\underline{i}$ فإن $\\underline{A} \\wedge \\underline{B}$ يساوي:",
-                options: ["$30\\vec{j}$", "$-10\\vec{j}$", "$30$", "خلاف ذلك"],
-                answer: "$30\\vec{j}$",
-                explanation: "بما أن $\\underline{k} \\wedge \\underline{i} = +\\underline{j}$ حسب قاعدة اليد اليمنى، فإن $(2\\underline{k}) \\wedge (15\\underline{i}) = 30\\underline{j}$."
+                q: "Q9: Neither AI model _____ ethical yet.",
+                options: ["is", "are", "were", "be"],
+                answer: "is",
+                explanation: "بعد (Neither + اسم مفرد) يجب استخدام فعل مفرد (is)."
             },
             {
                 id: 10,
-                q: "إذا كان $\\underline{A} = 2\\underline{k}$ و $\\underline{B} = 15\\underline{i}$ فإن حاصل الضرب القياسي $\\underline{A} \\cdot \\underline{B}$ يساوي:",
-                options: ["$0$", "$30$", "$30\\vec{j}$", "خلاف ذلك"],
-                answer: "$0$",
-                explanation: "المتجهان $\\underline{k}$ و $\\underline{i}$ متعامدان، وحاصل الضرب القياسي لأي متجهين متعامدين يساوي دائماً صفراً ($\\underline{k} \\cdot \\underline{i} = 0$)."
-            }
-        ],
-        2: [
+                q: "Q10: Neither of the servers _____ big data.",
+                options: ["handles", "handle", "handling", "have handled"],
+                answer: "handles",
+                explanation: "بعد (Neither of + plural noun) نختار الفعل المفرد (handles)."
+            },
             {
                 id: 11,
-                q: "إذا كان $\\underline{A} = 2\\underline{i} - 3\\underline{j}$ و $\\underline{B} = -\\underline{j} + \\underline{k}$ و $\\underline{C} = \\underline{i} + \\underline{j} + \\underline{k}$، أوجد حاصل الضرب الثلاثي القياسي $\\underline{A} \\cdot (\\underline{B} \\wedge \\underline{C})$:",
-                options: ["$-7$", "$7$", "$-1$", "$5$"],
-                answer: "$-7$",
-                explanation: "أولاً: $\\underline{B} \\wedge \\underline{C} = (-1-1)\\underline{i} - (0-1)\\underline{j} + (0-(-1))\\underline{k} = -2\\underline{i} + \\underline{j} + \\underline{k}$. ثم $\\underline{A} \\cdot (\\underline{B} \\wedge \\underline{C}) = (2)(-2) + (-3)(1) + (0)(1) = -4 - 3 = -7$."
+                q: "Q11: A: I can't use this program. B: Neither _____ I.",
+                options: ["can", "do", "am", "have"],
+                answer: "can",
+                explanation: "في الرد بـ (Neither) نكرر نفس الفعل المساعد الموجود في الجملة الأولى وهو هنا (can)."
             },
             {
                 id: 12,
-                q: "للمتجهات السابقة: $\\underline{A} = 2\\underline{i} - 3\\underline{j}$، $\\underline{B} = -\\underline{j} + \\underline{k}$، $\\underline{C} = \\underline{i} + \\underline{j} + \\underline{k}$، أوجد حاصل الضرب الثلاثي $\\underline{B} \\cdot (\\underline{A} \\wedge \\underline{C})$:",
-                options: ["$7$", "$-7$", "$0$", "$-5$"],
-                answer: "$7$",
-                explanation: "من خواص الضرب الثلاثي القياسي أن تبديل متجهين متجاورين يعكس الإشارة: $\\underline{B} \\cdot (\\underline{A} \\wedge \\underline{C}) = -\\underline{A} \\cdot (\\underline{B} \\wedge \\underline{C}) = -(-7) = 7$."
+                q: "Q12: A: I haven't tested the software. B: Neither _____ I.",
+                options: ["have", "do", "can", "did"],
+                answer: "have",
+                explanation: "نكرر الفعل المساعد (have) المستخدم في زمن المضارع التام المنفي في الجملة الأولى."
             },
             {
                 id: 13,
-                q: "أوجد متجهاً عمودياً على كلاً من المتجهين $\\underline{B} = -\\underline{j} + \\underline{k}$ و $\\underline{C} = \\underline{i} + \\underline{j} + \\underline{k}$:",
-                options: ["$-2\\underline{i} + \\underline{j} + \\underline{k}$", "$2\\underline{i} - \\underline{j} + \\underline{k}$", "$-2\\underline{i} - \\underline{j} - \\underline{k}$", "$\\underline{i} + \\underline{j} - \\underline{k}$"],
-                answer: "$-2\\underline{i} + \\underline{j} + \\underline{k}$",
-                explanation: "المتجه العمودي على متجهين هو ناتج ضربهما الاتجاهي $\\underline{B} \\wedge \\underline{C} = (-1-1)\\underline{i} - (0-1)\\underline{j} + (0+1)\\underline{k} = -2\\underline{i} + \\underline{j} + \\underline{k}$."
+                q: "Q13: Which response is grammatically INCORRECT?",
+                options: ["Neither I do.", "Neither do I.", "I don't like them either.", "Neither can they."],
+                answer: "Neither I do.",
+                explanation: "الصيغة الصحيحة هي تقديم الفعل المساعد على الفاعل (Neither do I) وليس (Neither I do)."
             },
             {
                 id: 14,
-                q: "إذا كان $\\underline{A} = 2\\underline{i} - 3\\underline{j}$ و $\\underline{C} = \\underline{i} + \\underline{j} + \\underline{k}$، أوجد مقدار حاصل الضرب $(\\underline{A} \\cdot \\underline{C})$:",
-                options: ["$-1$", "$5$", "$1$", "$-5$"],
-                answer: "$-1$",
-                explanation: "$\\underline{A} \\cdot \\underline{C} = (2)(1) + (-3)(1) + (0)(1) = 2 - 3 + 0 = -1$."
+                q: "Q14: Neither database _____ perfectly.",
+                options: ["fits", "fit", "fitting", "are fitting"],
+                answer: "fits",
+                explanation: "الاسم (database) مفرد بعد (Neither)، لذا يأخذ الفعل (fits)."
             },
             {
                 id: 15,
-                q: "إذا كان $\\underline{A} = 2\\underline{i} - 3\\underline{j}$ و $\\underline{B} = -\\underline{j} + \\underline{k}$، أوجد مقدار حاصل الضرب الاتجاهي $|\\underline{A} \\wedge \\underline{B}|$:",
-                options: ["$\\sqrt{17}$", "$\\sqrt{13}$", "$3$", "$\\sqrt{11}$"],
-                answer: "$\\sqrt{17}$",
-                explanation: "$\\underline{A} \\wedge \\underline{B} = (-3-0)\\underline{i} - (2-0)\\underline{j} + (-2-0)\\underline{k} = -3\\underline{i} - 2\\underline{j} - 2\\underline{k}$. ومقداره هو $\\sqrt{(-3)^2 + (-2)^2 + (-2)^2} = \\sqrt{9 + 4 + 4} = \\sqrt{17}$."
+                q: "Q15: He uses _____ SQL nor NoSQL alone.",
+                options: ["neither", "either", "both", "not"],
+                answer: "neither",
+                explanation: "وجود (nor) في الجملة يستلزم استخدام (neither) قبل البديل الأول."
             },
             {
                 id: 16,
-                q: "إذا كان $\\underline{A} = 7\\underline{k}$ و $\\underline{B} = 3\\underline{i}$ فإن مقدار حاصل الضرب $|\\underline{A} \\wedge \\underline{B}|$ يعطي:",
-                options: ["$21$", "$-21\\vec{j}$", "$21\\vec{j}$", "خلاف ذلك"],
-                answer: "$21$",
-                explanation: "حاصل الضرب الاتجاهي هو $21\\vec{j}$، وبالتالي فإن مقداره (طوله) هو العدد القياسي $21$."
+                q: "Q16: I don't like computer viruses. Neither do _____.",
+                options: ["I", "me", "my", "mine"],
+                answer: "I",
+                explanation: "بعد الفعل المساعد في (Neither do ...) نستخدم ضمير الفاعل (I) وليس ضمير المفعول (me)."
             },
             {
                 id: 17,
-                q: "إذا كان $\\underline{A} = 4\\underline{k}$ و $\\underline{B} = 8\\underline{i}$ فإن مقدار حاصل الضرب $|\\underline{A} \\wedge \\underline{B}|$ يعطي:",
-                options: ["$32$", "$-32\\vec{j}$", "$32\\vec{j}$", "$12$"],
-                answer: "$32$",
-                explanation: "$|\\underline{A} \\wedge \\underline{B}| = (4)(8)\\sin(90^\\circ) = 32$."
+                q: "Q17: Neither of them _____ reliable.",
+                options: ["is", "are", "were", "be"],
+                answer: "is",
+                explanation: "حتى مع الضمير الجمع (them) بعد (Neither of)، يظل الفعل مفرداً (is)."
             },
             {
                 id: 18,
-                q: "إذا كان $\\underline{A} = 9\\underline{k}$ و $\\underline{B} = 2\\underline{i}$ فإن $\\underline{A} \\wedge \\underline{B}$ يساوي:",
-                options: ["$18\\vec{j}$", "$-18\\vec{j}$", "$18$", "خلاف ذلك"],
-                answer: "$18\\vec{j}$",
-                explanation: "$(9\\underline{k}) \\wedge (2\\underline{i}) = 18(\\underline{k} \\wedge \\underline{i}) = 18\\vec{j}$."
+                q: "Q18: Either of the two programs _____ on Linux.",
+                options: ["works", "work", "working", "have worked"],
+                answer: "works",
+                explanation: "التركيب (Either of + اسم جمع) يشير إلى برنامج واحد من الاثنين، فيأخذ الفعل المفرد (works)."
             },
             {
                 id: 19,
-                q: "إذا كان $\\underline{A} = 5\\underline{k}$ و $\\underline{B} = 6\\underline{i}$ فإن $\\underline{A} \\wedge \\underline{B}$ يساوي:",
-                options: ["$30\\vec{j}$", "$30$", "$-30\\vec{j}$", "خلاف ذلك"],
-                answer: "$30\\vec{j}$",
-                explanation: "$(5\\underline{k}) \\wedge (6\\underline{i}) = 30(\\underline{k} \\wedge \\underline{i}) = 30\\vec{j}$."
+                q: "Q19: Neither scan _____ all viruses.",
+                options: ["catches", "catch", "catching", "are catching"],
+                answer: "catches",
+                explanation: "الاسم (scan) مفرد بعد (Neither)، لذلك نضيف (es) للفعل في المضارع البسيط ليصبح (catches)."
             },
             {
                 id: 20,
-                q: "المتجه $\\underline{A} = 2\\underline{i} - 3\\underline{j} + 5\\underline{k}$ يقع في:",
-                options: ["الفراغ", "المستوى", "خط مستقيم", "خلاف ذلك"],
-                answer: "الفراغ",
-                explanation: "لأن المتجه يحتوي على ثلاث مركبات في الاتجاهات الثلاثة ($\\underline{i}, \\underline{j}, \\underline{k}$)، فهو متجه في الفراغ الثلاثي (3D)."
+                q: "Q20: A: I don't use cloud storage. B: I don't use it _____.",
+                options: ["either", "neither", "too", "so"],
+                answer: "either",
+                explanation: "في نهاية الجملة المنفية نستخدم (either) للتعبير عن المشاركة في النفي."
             }
         ],
-        3: [
+        2: [
+            // أسئلة القطعة الأولى: University Study Skills (5 أسئلة)
             {
                 id: 21,
-                q: "إذا كان $\\underline{A} = 4\\underline{i}$ و $\\underline{B} = 3\\underline{k}$ فإن $\\underline{A} \\wedge \\underline{B}$ يساوي:",
-                options: ["$-12\\vec{j}$", "$12\\vec{j}$", "$12$", "خلاف ذلك"],
-                answer: "$-12\\vec{j}$",
-                explanation: "انتبه للترتيب الدوري: $\\underline{i} \\wedge \\underline{k} = -\\underline{j}$ (عكس عقارب الساعة يكون موجباً ومعها سالباً)، لذا $(4\\underline{i}) \\wedge (3\\underline{k}) = -12\\vec{j}$."
+                passageKey: "p1",
+                q: "According to Passage 1, the passage mainly discusses:",
+                options: ["University study skills", "University exams", "School teaching methods", "Online learning"],
+                answer: "University study skills",
+                explanation: "الفكرة الرئيسية للقطعة الأولى تدور حول مهارات الدراسة الجامعية الأساسية مثل إدارة الوقت والقراءة الأكاديمية."
             },
             {
                 id: 22,
-                q: "إذا كان $\\underline{A} = 3\\underline{j}$ و $\\underline{B} = 5\\underline{k}$ فإن $\\underline{A} \\wedge \\underline{B}$ يساوي:",
-                options: ["$15\\vec{i}$", "$-15\\vec{i}$", "$15$", "$0$"],
-                answer: "$15\\vec{i}$",
-                explanation: "حسب الترتيب الدوري لمتجهات الوحدة: $\\underline{j} \\wedge \\underline{k} = +\\underline{i}$، إذن الناتج $15\\vec{i}$."
+                passageKey: "p1",
+                q: "According to Passage 1, university students are expected to:",
+                options: ["Be independent learners", "Depend completely on lecturers", "Study only before exams", "Avoid academic reading"],
+                answer: "Be independent learners",
+                explanation: "ورد في الفقرة الأولى: (students are expected to become independent learners) أي متعلمين مستقلين."
             },
             {
                 id: 23,
-                q: "حاصل الضرب الاتجاهي لأي متجه في نفسه $\\vec{A} \\wedge \\vec{A}$ يساوي دائماً:",
-                options: ["$\\vec{0}$ (المتجه الصفري)", "$A^2$", "$1$", "$2\\vec{A}$"],
-                answer: "$\\vec{0}$ (المتجه الصفري)",
-                explanation: "الزاوية بين المتجه ونفسه هي $0^\\circ$، وبما أن $\\sin(0^\\circ) = 0$ فإن $\\vec{A} \\wedge \\vec{A} = \\vec{0}$."
+                passageKey: "p1",
+                q: "According to Passage 1, students who perform better academically usually:",
+                options: ["Create a weekly schedule", "Study without a plan", "Skip lectures", "Avoid assignments"],
+                answer: "Create a weekly schedule",
+                explanation: "الطلاب الذين يضعون جدولاً دراسياً أسبوعياً يحققون أداءً أكاديمياً أفضل."
             },
             {
                 id: 24,
-                q: "إذا كان $\\vec{A} = 3\\vec{i} - 4\\vec{j}$ فإن معيار (طول) المتجه $|\\vec{A}|$ يساوي:",
-                options: ["$5$", "$7$", "$-1$", "$25$"],
-                answer: "$5$",
-                explanation: "$|\\vec{A}| = \\sqrt{3^2 + (-4)^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$."
+                passageKey: "p1",
+                q: "According to Passage 1, skimming helps students to:",
+                options: ["Get main ideas", "Memorize every word", "Find grammar mistakes", "Translate texts"],
+                answer: "Get main ideas",
+                explanation: "القراءة السريعة العابرة (Skimming) تهدف إلى استخلاص الأفكار الرئيسية للنص دون قراءة كل كلمة."
             },
             {
                 id: 25,
-                q: "المتجه $\\vec{A} = (6, \\frac{\\pi}{3})$ في الصورة القطبية يُكتب في الصورة الكارتيزية:",
-                options: ["$(3, 3\\sqrt{3})$", "$(3\\sqrt{3}, 3)$", "$(3, 3)$", "$(6, 0)$"],
-                answer: "$(3, 3\\sqrt{3})$",
-                explanation: "$x = 6\\cos(60^\\circ) = 6 \\times \\frac{1}{2} = 3$، و $y = 6\\sin(60^\\circ) = 6 \\times \\frac{\\sqrt{3}}{2} = 3\\sqrt{3}$."
+                passageKey: "p1",
+                q: "According to Passage 1, taking notes while reading helps students to:",
+                options: ["Understand and remember information", "Finish quickly", "Avoid reading", "Copy the text"],
+                answer: "Understand and remember information",
+                explanation: "تدوين الملاحظات أثناء القراءة يساعد على فهم المعلومات وتذكرها بفعالية أكبر."
             },
+
+            // أسئلة القطعة الثانية: Group Work at University (5 أسئلة)
             {
                 id: 26,
-                q: "الشرط اللازم والكافي لكي يكون المتجهان غير الصفريين $\\vec{A}$ و $\\vec{B}$ متعامدين هو:",
-                options: ["$\\vec{A} \\cdot \\vec{B} = 0$", "$\\vec{A} \\wedge \\vec{B} = \\vec{0}$", "$\\vec{A} \\cdot \\vec{B} = 1$", "$\\vec{A} = \\vec{B}$"],
-                answer: "$\\vec{A} \\cdot \\vec{B} = 0$",
-                explanation: "عندما تكون الزاوية $\\theta = 90^\\circ$ يكون $\\cos(90^\\circ) = 0$، فينعدم الضرب القياسي."
+                passageKey: "p2",
+                q: "According to Passage 2, group work helps students develop:",
+                options: ["Academic and social skills", "Only academic skills", "Only social skills", "Physical skills"],
+                answer: "Academic and social skills",
+                explanation: "العمل الجماعي يطور كلاً من المهارات الأكاديمية والاجتماعية اللازمة للمستقبل المهني."
             },
             {
                 id: 27,
-                q: "قيمة $\\vec{i} \\cdot (\\vec{j} \\wedge \\vec{k})$ تساوي:",
-                options: ["$1$", "$0$", "$-1$", "$\\vec{i}$"],
-                answer: "$1$",
-                explanation: "لأن $\\vec{j} \\wedge \\vec{k} = \\vec{i}$، ثم $\\vec{i} \\cdot \\vec{i} = 1$."
+                passageKey: "p2",
+                q: "According to Passage 2, one advantage of group work is:",
+                options: ["Sharing ideas and knowledge", "Less responsibility", "No deadlines", "Less effort"],
+                answer: "Sharing ideas and knowledge",
+                explanation: "من مميزات العمل الجماعي تبادل الأفكار والمعرفة بين أعضاء الفريق."
             },
             {
                 id: 28,
-                q: "إذا كانت ثلاثة متجهات $\\vec{A}, \\vec{B}, \\vec{C}$ تقع في مستوى واحد (Coplanar)، فإن حاصل الضرب الثلاثي القياسي $\\vec{A} \\cdot (\\vec{B} \\wedge \\vec{C})$ يساوي:",
-                options: ["$0$", "$1$", "$-1$", "$ABC$"],
-                answer: "$0$",
-                explanation: "الضرب الثلاثي القياسي يمثل حجم متوازي السطوح المكون من المتجهات الثلاثة، وإذا وقعت في مستوى واحد ينعدم الحجم ويساوي صفراً."
+                passageKey: "p2",
+                q: "According to Passage 2, a challenge of group work is:",
+                options: ["Unequal contribution", "Too much time", "Easy tasks", "No deadlines"],
+                answer: "Unequal contribution",
+                explanation: "أحد التحديات المذكورة هو عدم تساوي مساهمة الطلاب (Unequal contribution) أو سيطرة البعض على النقاش."
             },
             {
                 id: 29,
-                q: "متجه الوحدة في اتجاه المتجه $\\vec{A} = 3\\vec{i} + 4\\vec{j}$ هو:",
-                options: ["$\\frac{3}{5}\\vec{i} + \\frac{4}{5}\\vec{j}$", "$3\\vec{i} + 4\\vec{j}$", "$\\frac{1}{5}\\vec{i} + \\frac{1}{5}\\vec{j}$", "$5\\vec{i} + 5\\vec{j}$"],
-                answer: "$\\frac{3}{5}\\vec{i} + \\frac{4}{5}\\vec{j}$",
-                explanation: "متجه الوحدة $\\hat{u} = \\frac{\\vec{A}}{|\\vec{A}|}$، وبما أن $|\\vec{A}| = \\sqrt{3^2+4^2} = 5$، فإن $\\hat{u} = \\frac{3}{5}\\vec{i} + \\frac{4}{5}\\vec{j}$."
+                passageKey: "p2",
+                q: "According to Passage 2, setting roles at the beginning helps to:",
+                options: ["Ensure fairness", "Confuse members", "Reduce quality", "Delay work"],
+                answer: "Ensure fairness",
+                explanation: "تحديد الأدوار والمسؤوليات في بداية المشروع يساعد على ضمان العدالة بين الجميع."
             },
             {
                 id: 30,
-                q: "إذا كان $\\vec{A} = 2\\vec{i} + m\\vec{j} - \\vec{k}$ عمودياً على $\\vec{B} = 3\\vec{i} - 2\\vec{j} + 4\\vec{k}$ فإن قيمة $m$ تساوي:",
-                options: ["$1$", "$-1$", "$2$", "$5$"],
-                answer: "$1$",
-                explanation: "بما أنهما متعامدان: $\\vec{A} \\cdot \\vec{B} = 0 \\implies (2)(3) + (m)(-2) + (-1)(4) = 0 \\implies 6 - 2m - 4 = 0 \\implies 2m = 2 \\implies m = 1$."
+                passageKey: "p2",
+                q: "According to Passage 2, group work prepares students for:",
+                options: ["The workplace", "Exams only", "School life", "University lectures"],
+                answer: "The workplace",
+                explanation: "العمل الجماعي يؤهل الطلاب لبيئة العمل المستقبلية (The workplace) التي تتطلب التعاون وحل المشكلات."
+            },
+
+            // أسئلة القطعة الثالثة: Technology in University Learning (5 أسئلة)
+            {
+                id: 31,
+                passageKey: "p3",
+                q: "According to Passage 3, flexibility means students can:",
+                options: ["Study anytime", "Avoid learning", "Ignore deadlines", "Cancel lectures"],
+                answer: "Study anytime",
+                explanation: "المرونة (Flexibility) تعني أن الطلاب يمكنهم الدراسة بالسرعة التي تناسبهم ومراجعة المحاضرات في أي وقت."
+            },
+            {
+                id: 32,
+                passageKey: "p3",
+                q: "According to Passage 3, recorded lectures help students to:",
+                options: ["Revise content", "Sleep", "Avoid attendance", "Cheat"],
+                answer: "Revise content",
+                explanation: "المحاضرات المسجلة تتيح للطلاب مراجعة المحتوى الدراسي متى احتاجوا إلى ذلك."
+            },
+            {
+                id: 33,
+                passageKey: "p3",
+                q: "According to Passage 3, a challenge of technology is:",
+                options: ["Online distraction", "Easy access", "Better communication", "Improved learning"],
+                answer: "Online distraction",
+                explanation: "من تحديات التكنولوجيا تشتت الانتباه عبر مواقع التواصل الاجتماعي والترفيه أثناء وقت الدراسة."
+            },
+            {
+                id: 34,
+                passageKey: "p3",
+                q: "According to Passage 3, digital literacy helps students to:",
+                options: ["Evaluate sources", "Waste time", "Avoid technology", "Ignore rules"],
+                answer: "Evaluate sources",
+                explanation: "المعرفة الرقمية (Digital literacy) تساعد الطلاب على تقييم المصادر الإلكترونية وإدارة وقتهم."
+            },
+            {
+                id: 35,
+                passageKey: "p3",
+                q: "According to Passage 3, academic integrity refers to:",
+                options: ["Honesty in study", "Cheating", "Speed of learning", "Online access"],
+                answer: "Honesty in study",
+                explanation: "النزاهة الأكاديمية (Academic integrity) تعني الأمانة العلمية والصدق في الدراسة."
+            },
+
+            // أسئلة القطعة الرابعة: Choosing a Career Path (5 أسئلة)
+            {
+                id: 36,
+                passageKey: "p4",
+                q: "According to Passage 4, internships help students to:",
+                options: ["Gain practical experience", "Avoid work", "Earn high salaries", "Skip university"],
+                answer: "Gain practical experience",
+                explanation: "التدريب العملي (Internships) يساعد الطلاب على اكتساب خبرة عملية وفهم متطلبات سوق العمل."
+            },
+            {
+                id: 37,
+                passageKey: "p4",
+                q: "According to Passage 4, career guidance centers help students to:",
+                options: ["Make informed decisions", "Find exams", "Choose courses", "Avoid graduation"],
+                answer: "Make informed decisions",
+                explanation: "مراكز التوجيه المهني بالجامعات تساعد الطلاب على اتخاذ قرارات مدروسة ومبنية على المعرفة."
+            },
+            {
+                id: 38,
+                passageKey: "p4",
+                q: "According to Passage 4, financial factors are described as:",
+                options: ["Important but not enough alone", "Unimportant", "The only factor", "Dangerous"],
+                answer: "Important but not enough alone",
+                explanation: "العوامل المالية مهمة، ولكن لا ينبغي أن تكون الاعتبار الوحيد عند اختيار المسار المهني."
+            },
+            {
+                id: 39,
+                passageKey: "p4",
+                q: "According to Passage 4, transferable skills include:",
+                options: ["Communication", "Memorization", "Sleeping", "Copying"],
+                answer: "Communication",
+                explanation: "المهارات القابلة للنقل (Transferable skills) تشمل التواصل وحل المشكلات والقدرة على التكيف."
+            },
+            {
+                id: 40,
+                passageKey: "p4",
+                q: "According to Passage 4, the writer encourages students to be:",
+                options: ["Flexible", "Rigid", "Careless", "Fearful"],
+                answer: "Flexible",
+                explanation: "في ظل تغير سوق العمل المستمر، يشجع الكاتب الطلاب على التحلي بالمرونة (Flexible)."
+            },
+
+            // أسئلة المصطلحات التقنية الأساسية من المقرر (5 أسئلة)
+            {
+                id: 41,
+                q: "A step-by-step procedure for solving problems in programming is called an:",
+                options: ["Algorithm", "Antivirus", "Hardware", "Output"],
+                answer: "Algorithm",
+                explanation: "الخوارزمية (Algorithm) هي خطوات متسلسلة ومنطقية لحل مشكلة برمجية أو أداء مهمة."
+            },
+            {
+                id: 42,
+                q: "Temporary storage for data that the CPU needs quickly is:",
+                options: ["RAM", "SSD", "Firewall", "Database"],
+                answer: "RAM",
+                explanation: "ذاكرة الوصول العشوائي (RAM) هي الذاكرة المؤقتة السريعة التي يعتمد عليها المعالج أثناء التشغيل."
+            },
+            {
+                id: 43,
+                q: "Security system that monitors and controls network traffic is a:",
+                options: ["Firewall", "Phishing", "Malware", "Spam"],
+                answer: "Firewall",
+                explanation: "جدار الحماية (Firewall) هو النظام الأمني الذي يراقب حركة البيانات الواردة والصادرة عبر الشبكة ويتحكم فيها."
+            },
+            {
+                id: 44,
+                q: "Fraudulent attempts to obtain sensitive information via fake emails or sites is:",
+                options: ["Phishing", "Backup", "Cloud computing", "Debugging"],
+                answer: "Phishing",
+                explanation: "التصيد الاحتيالي (Phishing) هو محاولة خداع المستخدمين عبر رسائل أو مواقع مزيفة لسرقة بياناتهم الحساسة."
+            },
+            {
+                id: 45,
+                q: "Input instructions given to AI models to generate specific outputs are called:",
+                options: ["Prompts", "Bugs", "Loops", "Breaches"],
+                answer: "Prompts",
+                explanation: "المطالبات أو التعليمات (Prompts) هي الأوامر النصية التي يكتبها المستخدم لتوجيه نماذج الذكاء الاصطناعي."
             }
         ]
     };
@@ -1005,8 +1180,8 @@
     let userAnswers = {};
     let currentIndex = 0;
     let timerInterval = null;
-    const TOTAL_TIME = 15 * 60; // 15 دقيقة لكل اختبار (10 أسئلة)
-    let timeRemaining = TOTAL_TIME;
+    let totalTimeSeconds = 20 * 60;
+    let timeRemaining = 20 * 60;
 
     // عناصر الواجهة
     const startView = document.getElementById("start-view");
@@ -1029,6 +1204,10 @@
     const answeredCountEl = document.getElementById("answered-count");
     const progressFill = document.getElementById("progress-fill");
     const questionDotsEl = document.getElementById("question-dots");
+    
+    const passageContainerEl = document.getElementById("passage-container");
+    const passageTitleEl = document.getElementById("passage-title");
+    const passageBodyEl = document.getElementById("passage-body");
     const questionTextEl = document.getElementById("question-text");
     const optionsListEl = document.getElementById("options-list");
 
@@ -1040,13 +1219,6 @@
     const confirmYes = document.getElementById("confirm-yes");
     const confirmNo = document.getElementById("confirm-no");
     const restartBtn = document.getElementById("restart-btn");
-
-    // دالة تحديث MathJax عند تغيير المحتوى الديناميكي
-    function typesetMath() {
-        if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise().catch((err) => console.log(err));
-        }
-    }
 
     // دالة خلط المصفوفات عشوائياً (Fisher-Yates Shuffle)
     function shuffleArray(array) {
@@ -1094,20 +1266,24 @@
 
     function initQuiz() {
         const rawQuestions = questionBank[selectedExamId];
-        currentQuestions = shuffleArray(rawQuestions).map(item => ({
+        
+        // في اختبار القطع (2) نُبقي ترتيب الأسئلة مرتباً حسب القطع الأربعة لتسهيل القراءة على الطالب مع خلط الاختيارات
+        const processedQuestions = selectedExamId === "2" ? [...rawQuestions] : shuffleArray(rawQuestions);
+        
+        currentQuestions = processedQuestions.map(item => ({
             ...item,
             shuffledOptions: shuffleArray(item.options)
         }));
 
         userAnswers = {};
         currentIndex = 0;
-        timeRemaining = TOTAL_TIME;
+        totalTimeSeconds = currentQuestions.length * 60; // دقيقة لكل سؤال
+        timeRemaining = totalTimeSeconds;
 
         displayNameEl.textContent = studentName;
         const examNames = {
-            "1": "الاختبار الأول (أساسيات المتجهات والضرب)",
-            "2": "الاختبار الثاني (التكليف الأول والضرب الثلاثي)",
-            "3": "الاختبار الثالث (تدريبات إضافية شاملة)"
+            "1": "الاختبار الأول (Either & Neither)",
+            "2": "الاختبار الثاني (Passages & Tech Terms)"
         };
         displayExamTitleEl.textContent = examNames[selectedExamId];
         totalQNumEl.textContent = currentQuestions.length;
@@ -1170,12 +1346,23 @@
         });
     }
 
-    // عرض السؤال الحالي
+    // عرض السؤال الحالي (مع قطعة الفهم إن وجدت)
     function renderQuestion() {
         const qObj = currentQuestions[currentIndex];
-        questionTextEl.innerHTML = `${currentIndex + 1}. ${qObj.q}`;
 
-        const letters = ["أ", "ب", "ج", "د"];
+        if (qObj.passageKey && passagesData[qObj.passageKey]) {
+            const pData = passagesData[qObj.passageKey];
+            passageTitleEl.textContent = pData.title;
+            passageBodyEl.textContent = pData.text;
+            passageContainerEl.classList.add("visible");
+        } else {
+            passageContainerEl.classList.remove("visible");
+        }
+
+        const cleanQuestionText = qObj.q.replace(/^Q\d+:\s*/i, "");
+        questionTextEl.textContent = `${currentIndex + 1}. ${cleanQuestionText}`;
+
+        const letters = ["A", "B", "C", "D"];
         optionsListEl.innerHTML = "";
 
         qObj.shuffledOptions.forEach((optText, i) => {
@@ -1207,7 +1394,6 @@
         nextBtn.disabled = currentIndex === currentQuestions.length - 1;
 
         renderDots();
-        typesetMath();
     }
 
     prevBtn.addEventListener("click", () => {
@@ -1258,7 +1444,7 @@
                 correctCount++;
             } else {
                 mistakes.push({
-                    question: qObj.q,
+                    question: qObj.q.replace(/^Q\d+:\s*/i, ""),
                     userAnswer: studentAns || "لم يتم اختيار إجابة (متروك)",
                     correctAnswer: qObj.answer,
                     explanation: qObj.explanation
@@ -1271,7 +1457,7 @@
         const percentage = Math.round((correctCount / total) * 100);
         const passed = percentage >= 60;
 
-        const spentSeconds = TOTAL_TIME - timeRemaining;
+        const spentSeconds = totalTimeSeconds - timeRemaining;
         const spentMins = Math.floor(spentSeconds / 60);
         const spentSecs = spentSeconds % 60;
         const formattedSpent = `${String(spentMins).padStart(2, '0')}:${String(spentSecs).padStart(2, '0')}`;
@@ -1286,9 +1472,8 @@
         }
 
         const examNames = {
-            "1": "الاختبار الأول (رياضيات Zero - أساسيات المتجهات)",
-            "2": "الاختبار الثاني (رياضيات Zero - التكليف الأول)",
-            "3": "الاختبار الثالث (رياضيات Zero - تدريبات إضافية)"
+            "1": "الاختبار الأول (English - Either/Neither)",
+            "2": "الاختبار الثاني (English - Reading Passages & Tech)"
         };
         document.getElementById("result-student-name").textContent = `الطالب: ${studentName}`;
         document.getElementById("result-exam-name").textContent = examNames[selectedExamId];
@@ -1316,14 +1501,14 @@
                     <div class="mistake-q">${index + 1}. ${m.question}</div>
                     <div class="answer-row answer-wrong">
                         <strong>إجابتك المختارة:</strong>
-                        <span class="answer-text-math">${m.userAnswer}</span>
+                        <span class="answer-text-en">${m.userAnswer}</span>
                     </div>
                     <div class="answer-row answer-correct">
                         <strong>الإجابة الصحيحة:</strong>
-                        <span class="answer-text-math">${m.correctAnswer}</span>
+                        <span class="answer-text-en">${m.correctAnswer}</span>
                     </div>
                     <div class="explanation-box">
-                        <strong>💡 التوضيح الرياضي وخطوات الحل:</strong> ${m.explanation}
+                        <strong>💡 التوضيح القواعدي / العلمي:</strong> ${m.explanation}
                     </div>
                 `;
                 mistakesContainer.appendChild(card);
@@ -1349,7 +1534,6 @@
         }
 
         switchView(resultView);
-        typesetMath();
     }
 
     restartBtn.addEventListener("click", () => {
