@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الاختبارات الإلكترونية - اللغة الإنجليزية (English - UR018)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --danger: #ef4444;
+            --danger-bg: #fef2f2;
+            --warning: #f59e0b;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--bg-main);
+        }
+
+        .app-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .app-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Views Management */
+        .view {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Start Screen */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .input-control:focus {
+            border-color: var(--primary);
+        }
+
+        .exams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .exam-card {
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #fff;
+            position: relative;
+        }
+
+        .exam-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(79, 70, 229, 0.1);
+        }
+
+        .exam-card.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .exam-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .exam-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .exam-card span {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-main);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .exam-card.selected span {
+            background: #fff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #e2e8f0;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* Quiz Screen */
+        .quiz-top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-main);
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .student-badge {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .timer-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary);
+            background: #fff;
+            padding: 6px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timer-box.warning {
+            color: var(--danger);
+            border-color: var(--danger);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            background-color: var(--bg-main);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 5%;
+            transition: width 0.3s ease;
+        }
+
+        /* Quick Navigation Dots */
+        .question-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: var(--bg-main);
+            border-radius: 12px;
+        }
+
+        .q-dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .q-dot.answered {
+            background-color: #dbeafe;
+            border-color: #93c5fd;
+            color: var(--primary);
+        }
+
+        .q-dot.active {
+            background-color: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Reading Passage Box & Toggle Button */
+        .passage-wrapper {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .passage-toggle-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 100%);
+            color: var(--primary);
+            border: 2px solid #c7d2fe;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .passage-toggle-btn:hover {
+            border-color: var(--primary);
+            background: #e0e7ff;
+        }
+
+        .passage-content {
+            display: none;
+            direction: ltr;
+            text-align: left;
+            background: #f8fafc;
+            border: 2px solid #c7d2fe;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.75;
+            color: #1e293b;
+            max-height: 280px;
+            overflow-y: auto;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .passage-content.open {
+            display: block;
+        }
+
+        .passage-toggle-btn.open {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .passage-content h4 {
+            color: var(--primary);
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 6px;
+        }
+
+        .passage-content p {
+            margin-bottom: 10px;
+        }
+
+        /* Question Card (LTR for English Content) */
+        .question-box {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            direction: ltr;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .option-item.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-dark);
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-letter {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Quiz Controls */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Result Screen */
+        .result-summary {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 16px;
+            background: var(--bg-main);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .status-pass {
+            background-color: var(--success-bg);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-fail {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .score-circle {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 10px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .stat-card p {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        /* Error Analysis Section */
+        .review-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            border-right: 4px solid var(--primary);
+            padding-right: 12px;
+        }
+
+        .mistake-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .mistake-q {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            color: var(--text-dark);
+        }
+
+        .answer-row {
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .answer-wrong {
+            background-color: var(--danger-bg);
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .answer-correct {
+            background-color: var(--success-bg);
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .answer-text-en {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+        }
+
+        .explanation-box {
+            background-color: #f1f5f9;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.92rem;
+            color: #334155;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .perfect-score-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--success-bg);
+            color: #065f46;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 28px;
+            border-radius: 16px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+            .app-header h1 {
+                font-size: 1.4rem;
+            }
+            .quiz-footer {
+                flex-direction: column;
+            }
+            .nav-buttons, .btn-danger {
+                width: 100%;
+            }
+            .nav-buttons .btn {
+                flex: 1;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="app-header">
+        <h1>منصة الاختبارات الإلكترونية الذكية</h1>
+        <p>مقرر اللغة الإنجليزية للحاسبات والذكاء الاصطناعي (English - UR018)</p>
+    </header>
+
+    <!-- 1. Start View -->
+    <section id="start-view" class="view active">
+        <div class="form-group">
+            <label for="student-name">اسم الطالب بالكامل:</label>
+            <input type="text" id="student-name" class="input-control" placeholder="اكتب اسمك هنا للبدء...">
+            <div id="name-error" class="error-msg">يرجى إدخال اسم الطالب أولاً.</div>
+        </div>
+
+        <div class="form-group">
+            <label>اختر نموذج الاختبار المطلوب (20 سؤالاً / 20 دقيقة لكل اختبار):</label>
+            <div class="exams-grid">
+                <div class="exam-card" data-exam="1">
+                    <h3>الاختبار الأول</h3>
+                    <p>قواعد Either & Neither بجميع حالاتها</p>
+                    <span>20 سؤالاً</span>
+                </div>
+                <div class="exam-card" data-exam="2">
+                    <h3>الاختبار الثاني</h3>
+                    <p>الأزمنة وأنواع الجمل (Simple, Compound, Complex)</p>
+                    <span>20 سؤالاً</span>
+                </div>
+                <div class="exam-card" data-exam="3">
+                    <h3>الاختبار الثالث</h3>
+                    <p>المصطلحات التقنية وقطع الفهم (مع عرض القطعة)</p>
+                    <span>20 سؤالاً</span>
+                </div>
+            </div>
+            <div id="exam-error" class="error-msg">يرجى اختيار أحد الاختبارات الثلاثة للمتابعة.</div>
+        </div>
+
+        <button id="start-btn" class="btn btn-primary">ابدأ الاختبار الآن</button>
+    </section>
+
+    <!-- 2. Quiz View -->
+    <section id="quiz-view" class="view">
+        <div class="quiz-top-bar">
+            <div class="student-badge">
+                الطالب: <span id="display-name"></span> | <span id="display-exam-title" style="color: var(--primary);"></span>
+            </div>
+            <div class="timer-box" id="timer-box">
+                <span>⏱ الوقت المتبقي:</span>
+                <span id="timer-display">20:00</span>
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-info">
+                <span>السؤال <span id="current-q-num">1</span> من 20</span>
+                <span>تمت الإجابة على: <span id="answered-count">0</span> / 20</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="question-dots" id="question-dots"></div>
+
+        <!-- صندوق قطعة الفهم القابل للفتح والطي -->
+        <div class="passage-wrapper" id="passage-wrapper">
+            <button type="button" class="passage-toggle-btn" id="passage-toggle-btn">
+                <span id="passage-btn-label">📖 اضغط هنا لعرض قطعة الفهم (Reading Passage)</span>
+                <span id="passage-arrow">▼</span>
+            </button>
+            <div class="passage-content" id="passage-content"></div>
+        </div>
+
+        <div class="question-box">
+            <div class="question-text" id="question-text"></div>
+            <div class="options-list" id="options-list"></div>
+        </div>
+
+        <div class="quiz-footer">
+            <div class="nav-buttons">
+                <button id="prev-btn" class="btn btn-secondary">السؤال السابق</button>
+                <button id="next-btn" class="btn btn-secondary">السؤال التالي</button>
+            </div>
+            <button id="submit-btn" class="btn btn-danger">إنهاء الاختبار وتسليم الإجابات</button>
+        </div>
+    </section>
+
+    <!-- 3. Result View -->
+    <section id="result-view" class="view">
+        <div class="result-summary">
+            <div id="pass-fail-badge" class="status-badge"></div>
+            <h2 id="result-student-name" style="margin-bottom: 6px;"></h2>
+            <p id="result-exam-name" style="color: var(--text-muted);"></p>
+            <div class="score-circle"><span id="final-score">0</span> / 20</div>
+            <p style="font-weight: 700; font-size: 1.2rem; color: var(--primary);">
+                النسبة المئوية: <span id="final-percentage">0%</span>
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>الإجابات الصحيحة</h4>
+                    <p id="stat-correct" style="color: var(--success);">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>الإجابات الخاطئة</h4>
+                    <p id="stat-wrong" style="color: var(--danger);">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>الوقت المستغرق</h4>
+                    <p id="stat-time" style="color: var(--text-dark);">00:00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-section">
+            <h3>تحليل الأخطاء والمراجعة التفصيلية</h3>
+            <div id="mistakes-container"></div>
+        </div>
+
+        <button id="restart-btn" class="btn btn-primary" style="margin-top: 20px;">العودة للصفحة الرئيسية وبدء اختبار جديد</button>
+    </section>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="confirm-modal">
+    <div class="modal-box">
+        <h3>تأكيد تسليم الاختبار</h3>
+        <p id="modal-message">هل أنت متأكد من رغبتك في إنهاء الاختبار وتسليم إجاباتك الآن؟</p>
+        <div class="modal-actions">
+            <button id="confirm-yes" class="btn btn-danger">نعم، تسليم الإجابات</button>
+            <button id="confirm-no" class="btn btn-secondary">تراجع</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // رابط Google Apps Script لاستقبال النتائج تلقائياً
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMSDOpWMcg_ACxVj_OvPhoD_bbE_YeCURkhOJrfSf47umVSXis-yqhEYbe2kg-SNmm/exec";
+
+    // نصوص قطع الفهم الأربع من المقرر
+    const readingPassages = {
+        p1: {
+            title: "Passage 1: University Study Skills",
+            html: `
+                <h4>Passage 1: University Study Skills</h4>
+                <p>University life is very different from school life. At university, students are expected to become independent learners who can manage their time, organize their study materials, and take responsibility for their academic progress. Lecturers usually provide guidance, but they do not follow students step by step.</p>
+                <p>One of the most important skills university students need is time management. Many students struggle because they do not plan their day properly. Attending lectures, preparing assignments, reading academic texts, and revising for exams all require careful planning. Students who create a weekly study schedule often perform better academically.</p>
+                <p>Another essential skill is academic reading. University textbooks and research articles are usually long and complex. Students should learn how to skim for main ideas and scan for specific information instead of reading every word. Taking notes while reading also helps students understand and remember information more effectively.</p>
+                <p>Finally, successful university students know how to ask for help when needed. They may consult their lecturers during office hours, discuss difficult topics with classmates, or use online academic resources. These strategies help students overcome challenges and achieve academic success.</p>
+            `
+        },
+        p2: {
+            title: "Passage 2: Group Work at University",
+            html: `
+                <h4>Passage 2: Group Work at University</h4>
+                <p>Group work is a common learning activity at university. Many courses require students to work together on projects, presentations, or research tasks. This type of work helps students develop both academic and social skills that are important for their future careers.</p>
+                <p>One advantage of group work is that students can share ideas and knowledge. Each member may have different strengths, such as writing, research, or presentation skills. By working together, students can produce higher-quality work than they might achieve individually.</p>
+                <p>However, group work can also be challenging. Some students may not contribute equally, while others may dominate discussions. To overcome these problems, clear communication and role distribution are essential. Setting deadlines and responsibilities at the beginning of the project can help ensure fairness.</p>
+                <p>Despite its challenges, group work prepares students for the workplace. Most professional environments require teamwork, cooperation, and problem-solving. Therefore, learning how to work effectively in a group at university is a valuable experience.</p>
+            `
+        },
+        p3: {
+            title: "Passage 3: Technology in University Learning",
+            html: `
+                <h4>Passage 3: Technology in University Learning</h4>
+                <p>Technology has become an essential part of university education. Many students rely on digital tools such as laptops, tablets, and smartphones to access learning materials and complete assignments. Online platforms allow students to download lecture notes, submit coursework, and communicate with their lecturers.</p>
+                <p>One major advantage of technology is flexibility. Students can study at their own pace and review recorded lectures whenever they need. This is especially helpful for students who work part-time or have other responsibilities.</p>
+                <p>However, technology also presents challenges. Some students may become distracted by social media or online entertainment during study time. In addition, technical problems such as poor internet connection can affect learning.</p>
+                <p>To benefit fully from technology, students need to use it responsibly. Developing digital literacy skills helps students evaluate online sources, manage their time effectively, and maintain academic integrity.</p>
+            `
+        },
+        p4: {
+            title: "Passage 4: Choosing a Career Path",
+            html: `
+                <h4>Passage 4: Choosing a Career Path</h4>
+                <p>Choosing a career path is one of the most important decisions university students face. Many students feel uncertain about their future, especially when they are close to graduation. They may worry about job opportunities, income, and personal satisfaction.</p>
+                <p>Some students choose their career based on their field of study, while others prefer to explore different options. Internships and part-time jobs can help students gain practical experience and understand the demands of the job market. Career guidance centers at universities also play a key role in helping students make informed decisions.</p>
+                <p>It is important for students to consider their skills, interests, and values when choosing a career. A job that matches a student's abilities and personality is more likely to lead to long-term success. Financial factors are important, but they should not be the only consideration.</p>
+                <p>In today's changing job market, flexibility is essential. Many graduates may change their career path several times during their lives. Therefore, developing transferable skills such as communication, problem-solving, and adaptability is crucial.</p>
+            `
+        }
+    };
+
+    // بنك الأسئلة الكامل (60 سؤالاً من مقرر اللغة الإنجليزية UR018)
+    const questionBank = {
+        1: [
+            {
+                id: 1,
+                q: "Q1: You can _____ buy RAM or an SSD.",
+                options: ["either", "neither", "both", "nor"],
+                answer: "either",
+                explanation: "نستخدم تركيب (either ... or) للتخيير الإيجابي بين بديلين."
+            },
+            {
+                id: 2,
+                q: "Q2: Either of the laptops _____ algorithms fast.",
+                options: ["runs", "run", "running", "are running"],
+                answer: "runs",
+                explanation: "بعد (Either of + اسم جمع) يأتي الفعل دائماً في صيغة المفرد (runs) لأن المقصود هو أحد الجهازين فقط."
+            },
+            {
+                id: 3,
+                q: "Q3: A: I don't like slow CPUs. B: I don't like them _____.",
+                options: ["either", "neither", "too", "also"],
+                answer: "either",
+                explanation: "للموافقة على جملة منفية في نهاية الجملة نستخدم (either) ولا نستخدم (too)."
+            },
+            {
+                id: 4,
+                q: "Q4: Install either an antivirus _____ a firewall.",
+                options: ["or", "nor", "and", "but"],
+                answer: "or",
+                explanation: "أداة الربط التي تكمل (either) هي (or)."
+            },
+            {
+                id: 5,
+                q: "Q5: Either of the tools _____ phishing.",
+                options: ["blocks", "block", "blocking", "have blocked"],
+                answer: "blocks",
+                explanation: "التركيب (Either of + plural noun) يتبعه فعل مفرد (blocks)."
+            },
+            {
+                id: 6,
+                q: "Q6: I like neither vague _____ short prompts.",
+                options: ["nor", "or", "and", "neither"],
+                answer: "nor",
+                explanation: "نستخدم (neither ... nor) لنفي البديلين معاً."
+            },
+            {
+                id: 7,
+                q: "Q7: Neither of the examples _____ coders.",
+                options: ["helps", "help", "helping", "are helping"],
+                answer: "helps",
+                explanation: "بعد (Neither of + اسم جمع) يأتي الفعل مفرداً (helps) في اللغة الإنجليزية القياسية."
+            },
+            {
+                id: 8,
+                q: "Q8: A: I don't like bad prompts. B: _____ do I.",
+                options: ["Neither", "Either", "So", "Too"],
+                answer: "Neither",
+                explanation: "للموافقة المختصرة على جملة منفية نستخدم (Neither + فعل مساعد + فاعل) مثل: Neither do I."
+            },
+            {
+                id: 9,
+                q: "Q9: Neither AI model _____ ethical yet.",
+                options: ["is", "are", "were", "be"],
+                answer: "is",
+                explanation: "بعد (Neither + اسم مفرد) يجب استخدام فعل مفرد (is)."
+            },
+            {
+                id: 10,
+                q: "Q10: Neither of the servers _____ big data.",
+                options: ["handles", "handle", "handling", "have handled"],
+                answer: "handles",
+                explanation: "بعد (Neither of + plural noun) نختار الفعل المفرد (handles)."
+            },
+            {
+                id: 11,
+                q: "Q11: A: I can't use this program. B: Neither _____ I.",
+                options: ["can", "do", "am", "have"],
+                answer: "can",
+                explanation: "في الرد بـ (Neither) نكرر نفس الفعل المساعد الموجود في الجملة الأولى وهو هنا (can)."
+            },
+            {
+                id: 12,
+                q: "Q12: A: I haven't tested the software. B: Neither _____ I.",
+                options: ["have", "do", "can", "did"],
+                answer: "have",
+                explanation: "نكرر الفعل المساعد (have) المستخدم في زمن المضارع التام المنفي في الجملة الأولى."
+            },
+            {
+                id: 13,
+                q: "Q13: Which response is grammatically INCORRECT?",
+                options: ["Neither I do.", "Neither do I.", "I don't like them either.", "Neither can they."],
+                answer: "Neither I do.",
+                explanation: "الصيغة الصحيحة هي تقديم الفعل المساعد على الفاعل (Neither do I) وليس (Neither I do)."
+            },
+            {
+                id: 14,
+                q: "Q14: Neither database _____ perfectly.",
+                options: ["fits", "fit", "fitting", "are fitting"],
+                answer: "fits",
+                explanation: "الاسم (database) مفرد بعد (Neither)، لذا يأخذ الفعل (fits)."
+            },
+            {
+                id: 15,
+                q: "Q15: He uses _____ SQL nor NoSQL alone.",
+                options: ["neither", "either", "both", "not"],
+                answer: "neither",
+                explanation: "وجود (nor) في الجملة يستلزم استخدام (neither) قبل البديل الأول."
+            },
+            {
+                id: 16,
+                q: "Q16: I don't like computer viruses. Neither do _____.",
+                options: ["I", "me", "my", "mine"],
+                answer: "I",
+                explanation: "بعد الفعل المساعد في (Neither do ...) نستخدم ضمير الفاعل (I) وليس ضمير المفعول (me)."
+            },
+            {
+                id: 17,
+                q: "Q17: Neither of them _____ reliable.",
+                options: ["is", "are", "were", "be"],
+                answer: "is",
+                explanation: "حتى مع الضمير الجمع (them) بعد (Neither of)، يظل الفعل مفرداً (is)."
+            },
+            {
+                id: 18,
+                q: "Q18: Either of the two programs _____ on Linux.",
+                options: ["works", "work", "working", "have worked"],
+                answer: "works",
+                explanation: "التركيب (Either of + اسم جمع) يشير إلى برنامج واحد من الاثنين، فيأخذ الفعل المفرد (works)."
+            },
+            {
+                id: 19,
+                q: "Q19: Neither scan _____ all viruses.",
+                options: ["catches", "catch", "catching", "are catching"],
+                answer: "catches",
+                explanation: "الاسم (scan) مفرد بعد (Neither)، لذلك نضيف (es) للفعل في المضارع البسيط ليصبح (catches)."
+            },
+            {
+                id: 20,
+                q: "Q20: A: I don't use cloud storage. B: I don't use it _____.",
+                options: ["either", "neither", "too", "so"],
+                answer: "either",
+                explanation: "في نهاية الجملة المنفية نستخدم (either) للتعبير عن المشاركة في النفي."
+            }
+        ],
+        2: [
+            {
+                id: 21,
+                q: "Q1: The computer usually _____ data on the hard drive.",
+                options: ["stores", "is storing", "store", "stored"],
+                answer: "stores",
+                explanation: "وجود كلمة (usually) يدل على عادة متكررة أو حقيقة، فنستخدم المضارع البسيط (stores) مع الفاعل المفرد."
+            },
+            {
+                id: 22,
+                q: "Q2: Look! The programmer _____ new code.",
+                options: ["is writing", "writes", "wrote", "write"],
+                answer: "is writing",
+                explanation: "كلمة (Look!) تدل على حدث يقع الآن في لحظة الكلام، فنستخدم المضارع المستمر (is writing)."
+            },
+            {
+                id: 23,
+                q: "Q3: The server _____ the request right now.",
+                options: ["is processing", "processes", "processed", "process"],
+                answer: "is processing",
+                explanation: "عبارة (right now) من علامات المضارع المستمر (is processing)."
+            },
+            {
+                id: 24,
+                q: "Q4: A CPU _____ instructions.",
+                options: ["processes", "is processing", "processing", "process"],
+                answer: "processes",
+                explanation: "تُستخدم صيغة المضارع البسيط (processes) لوصف الوظائف والحقائق العلمية الثابتة للأجهزة."
+            },
+            {
+                id: 25,
+                q: "Q5: We _____ a website last year.",
+                options: ["developed", "were developing", "develop", "are developing"],
+                answer: "developed",
+                explanation: "عبارة (last year) تدل على حدث مكتمل في الماضي، فنستخدم الماضي البسيط (developed)."
+            },
+            {
+                id: 26,
+                q: "Q6: The programmer _____ the code when the system crashed.",
+                options: ["was debugging", "debugged", "debugs", "is debugging"],
+                answer: "was debugging",
+                explanation: "الحدث الطويل المستمر في الماضي يوضع في الماضي المستمر (was debugging) عندما يقطعه حدث قصير في الماضي البسيط (crashed)."
+            },
+            {
+                id: 27,
+                q: "Q7: The server _____ while we were working.",
+                options: ["stopped", "was stopping", "stops", "is stopping"],
+                answer: "stopped",
+                explanation: "بعد (while) يأتي الماضي المستمر، والحدث المفاجئ الذي وقع أثناءه يوضع في الماضي البسيط (stopped)."
+            },
+            {
+                id: 28,
+                q: "Q8: Did you _____ the software yesterday?",
+                options: ["install", "installed", "installing", "installs"],
+                answer: "install",
+                explanation: "بعد الفعل المساعد (Did) في السؤال يأتي الفعل في المصدر بدون إضافات (install)."
+            },
+            {
+                id: 29,
+                q: "Q9: 'Algorithms calculate results.' What type of sentence is this?",
+                options: ["Simple sentence", "Compound sentence", "Complex sentence", "Conditional sentence"],
+                answer: "Simple sentence",
+                explanation: "تتكون من جملة مستقلة واحدة فقط (فاعل + فعل + مفعول)، لذا فهي جملة بسيطة (Simple sentence)."
+            },
+            {
+                id: 30,
+                q: "Q10: 'Neural networks train data, and layers connect nodes.' This is a:",
+                options: ["Compound sentence", "Simple sentence", "Complex sentence", "Fragment"],
+                answer: "Compound sentence",
+                explanation: "تتكون من جملتين مستقلتين مربوطتين بأداة الربط التنسيقية (and)، لذا فهي جملة مركبة (Compound sentence)."
+            },
+            {
+                id: 31,
+                q: "Q11: 'Models predict accurately, _____ data cleans first.'",
+                options: ["but", "because", "although", "when"],
+                answer: "but",
+                explanation: "نستخدم أداة الربط التنسيقية (but) للربط بين جملتين مستقلتين متناقضتين في جملة مركبة (Compound)."
+            },
+            {
+                id: 32,
+                q: "Q12: 'Change passwords because hackers guess weak ones.' This is a:",
+                options: ["Complex sentence", "Simple sentence", "Compound sentence", "Negative response"],
+                answer: "Complex sentence",
+                explanation: "تحتوي على جملة مستقلة وجملة تابعة تبدأ بأداة الربط السببية (because)، لذا فهي جملة معقدة (Complex sentence)."
+            },
+            {
+                id: 33,
+                q: "Q13: Which word is a subordinating conjunction used in Complex sentences?",
+                options: ["although", "and", "but", "so"],
+                answer: "although",
+                explanation: "كلمة (although) من أدوات الربط التابعة (Subordinators) التي تكوّن الجمل المعقدة (Complex)، بينما البقية أدوات تنسيق للجمل المركبة."
+            },
+            {
+                id: 34,
+                q: "Q14: 'Tests validate outputs, _____ errors drop low.'",
+                options: ["so", "because", "if", "which"],
+                answer: "so",
+                explanation: "تُستخدم (so) في الجمل المركبة (Compound) لبيان النتيجة المترتبة على الجملة الأولى."
+            },
+            {
+                id: 35,
+                q: "Q15: 'Experts recommend lengths _____ resist cracks.'",
+                options: ["which", "and", "but", "so"],
+                answer: "which",
+                explanation: "نستخدم اسم الموصول (which) لغير العاقل لتكوين جملة معقدة (Complex sentence)."
+            },
+            {
+                id: 36,
+                q: "Q16: 'Alerts notify _____ logins fail.'",
+                options: ["when", "or", "yet", "for"],
+                answer: "when",
+                explanation: "تُستخدم أداة الربط الزمنية (when) للربط بين الجملة الرئيسية والجملة التابعة في الجملة المعقدة."
+            },
+            {
+                id: 37,
+                q: "Q17: 'The system _____ not use much memory.'",
+                options: ["does", "do", "is", "are"],
+                answer: "does",
+                explanation: "في نفي المضارع البسيط مع الفاعل المفرد (The system) نستخدم (does not + مصدر الفعل)."
+            },
+            {
+                id: 38,
+                q: "Q18: 'The programmer _____ find the error yesterday.'",
+                options: ["did not", "does not", "was not", "has not"],
+                answer: "did not",
+                explanation: "وجود كلمة (yesterday) مع الفعل في المصدر (find) يتطلب النفي في الماضي البسيط باستخدام (did not)."
+            },
+            {
+                id: 39,
+                q: "Q19: 'HTML _____ the structure of a web page.'",
+                options: ["defines", "define", "is defining", "defined"],
+                answer: "defines",
+                explanation: "حقيقة تقنية ثابتة تُعبر عنها بصيغة المضارع البسيط (defines)."
+            },
+            {
+                id: 40,
+                q: "Q20: 'They _____ the website at 6 p.m. yesterday.'",
+                options: ["were testing", "tested", "test", "are testing"],
+                answer: "were testing",
+                explanation: "تحديد ساعة معينة في الماضي (at 6 p.m. yesterday) يدل على استمرار الحدث في تلك اللحظة، فنستخدم الماضي المستمر (were testing)."
+            }
+        ],
+        3: [
+            {
+                id: 41,
+                q: "Q1: A step-by-step procedure for solving problems in programming is called an:",
+                options: ["Algorithm", "Antivirus", "Hardware", "Output"],
+                answer: "Algorithm",
+                explanation: "الخوارزمية (Algorithm) هي خطوات متسلسلة ومنطقية لحل مشكلة برمجية أو أداء مهمة."
+            },
+            {
+                id: 42,
+                q: "Q2: Temporary storage for data that the CPU needs quickly is:",
+                options: ["RAM", "SSD", "Firewall", "Database"],
+                answer: "RAM",
+                explanation: "ذاكرة الوصول العشوائي (RAM) هي الذاكرة المؤقتة السريعة التي يعتمد عليها المعالج أثناء التشغيل."
+            },
+            {
+                id: 43,
+                q: "Q3: Fast storage device using flash memory instead of moving parts is:",
+                options: ["SSD", "CPU", "RAM", "Server"],
+                answer: "SSD",
+                explanation: "محرك الحالة الصلبة (SSD) يعتمد على ذاكرة الفلاش السريعة ولا يحتوي على أجزاء ميكانيكية متحركة."
+            },
+            {
+                id: 44,
+                q: "Q4: Security system that monitors and controls network traffic is a:",
+                options: ["Firewall", "Phishing", "Malware", "Spam"],
+                answer: "Firewall",
+                explanation: "جدار الحماية (Firewall) هو النظام الأمني الذي يراقب حركة البيانات الواردة والصادرة عبر الشبكة ويتحكم فيها."
+            },
+            {
+                id: 45,
+                q: "Q5: Fraudulent attempts to obtain sensitive information via fake emails or sites is:",
+                options: ["Phishing", "Backup", "Cloud computing", "Debugging"],
+                answer: "Phishing",
+                explanation: "التصيد الاحتيالي (Phishing) هو محاولة خداع المستخدمين عبر رسائل أو مواقع مزيفة لسرقة بياناتهم الحساسة."
+            },
+            {
+                id: 46,
+                q: "Q6: AI subset where systems learn from data without explicit programming is:",
+                options: ["Machine learning", "Cloud computing", "Spreadsheet", "Hardware"],
+                answer: "Machine learning",
+                explanation: "التعلم الآلي (Machine learning) هو فرع من الذكاء الاصطناعي يمكّن الأنظمة من التعلم من البيانات دون برمجة صريحة لكل خطوة."
+            },
+            {
+                id: 47,
+                q: "Q7: Input instructions given to AI models to generate specific outputs are called:",
+                options: ["Prompts", "Bugs", "Loops", "Breaches"],
+                answer: "Prompts",
+                explanation: "المطالبات أو التعليمات (Prompts) هي الأوامر النصية التي يكتبها المستخدم لتوجيه نماذج الذكاء الاصطناعي."
+            },
+            {
+                id: 48,
+                q: "Q8: Systematic favoritism in AI decisions due to flawed training data is:",
+                options: ["Bias", "Scalability", "Accuracy", "Encryption"],
+                answer: "Bias",
+                explanation: "التحيز (Bias) يحدث عندما تميل قرارات الذكاء الاصطناعي بشكل غير عادل نتيجة بيانات تدريب غير متوازنة أو معيبة."
+            },
+            {
+                id: 49,
+                q: "Q9: Code structures that repeat a block of instructions are called:",
+                options: ["Loops", "Variables", "Queries", "Servers"],
+                answer: "Loops",
+                explanation: "الحلقات التكرارية (Loops) تُستخدم لتكرار تنفيذ مجموعة من الأوامر البرمجية."
+            },
+            {
+                id: 50,
+                q: "Q10: Copies of data stored separately to prevent loss are:",
+                options: ["Backups", "Viruses", "Logs", "Nodes"],
+                answer: "Backups",
+                explanation: "النسخ الاحتياطية (Backups) هي نسخ محفوظة بشكل منفصل لحماية البيانات من الفقدان أو التلف."
+            },
+            {
+                id: 51,
+                passageId: "p1",
+                q: "Q11: (Passage 1 - University Study Skills) Skimming helps students to:",
+                options: ["Get main ideas", "Memorize every word", "Find grammar mistakes", "Translate texts"],
+                answer: "Get main ideas",
+                explanation: "القراءة السريعة العابرة (Skimming) تهدف إلى استخلاص الأفكار الرئيسية للنص دون قراءة كل كلمة."
+            },
+            {
+                id: 52,
+                passageId: "p1",
+                q: "Q12: (Passage 1 - University Study Skills) University students are expected to:",
+                options: ["Be independent learners", "Depend completely on lecturers", "Study only before exams", "Avoid academic reading"],
+                answer: "Be independent learners",
+                explanation: "في الحياة الجامعية يُتوقع من الطلاب أن يكونوا متعلمين مستقلين (Independent learners) يديرون وقتهم وموادهم بأنفسهم."
+            },
+            {
+                id: 53,
+                passageId: "p2",
+                q: "Q13: (Passage 2 - Group Work) A challenge of group work mentioned in the text is:",
+                options: ["Unequal contribution", "Too much time", "Easy tasks", "No deadlines"],
+                answer: "Unequal contribution",
+                explanation: "من أبرز تحديات العمل الجماعي عدم تساوي مساهمة الأعضاء (Unequal contribution) أو سيطرة البعض على النقاش."
+            },
+            {
+                id: 54,
+                passageId: "p2",
+                q: "Q14: (Passage 2 - Group Work) Setting roles at the beginning of a project helps to:",
+                options: ["Ensure fairness", "Confuse members", "Reduce quality", "Delay work"],
+                answer: "Ensure fairness",
+                explanation: "توزيع الأدوار والمسؤوليات في بداية المشروع يضمن العدالة (Ensure fairness) بين جميع أعضاء الفريق."
+            },
+            {
+                id: 55,
+                passageId: "p3",
+                q: "Q15: (Passage 3 - Technology in Learning) Digital literacy helps students to:",
+                options: ["Evaluate online sources", "Waste time", "Avoid technology", "Ignore rules"],
+                answer: "Evaluate online sources",
+                explanation: "المعرفة الرقمية (Digital literacy) تساعد الطلاب على تقييم المصادر الإلكترونية وإدارة الوقت والحفاظ على النزاهة الأكاديمية."
+            },
+            {
+                id: 56,
+                passageId: "p3",
+                q: "Q16: (Passage 3 - Technology in Learning) Academic integrity refers to:",
+                options: ["Honesty in study", "Cheating", "Speed of learning", "Online access"],
+                answer: "Honesty in study",
+                explanation: "النزاهة الأكاديمية (Academic integrity) تعني الأمانة العلمية والصدق في الدراسة والبحوث."
+            },
+            {
+                id: 57,
+                passageId: "p4",
+                q: "Q17: (Passage 4 - Career Path) Internships help students to:",
+                options: ["Gain practical experience", "Avoid work", "Earn high salaries", "Skip university"],
+                answer: "Gain practical experience",
+                explanation: "التدريب العملي (Internships) يساعد الطلاب على اكتساب خبرة عملية وفهم متطلبات سوق العمل."
+            },
+            {
+                id: 58,
+                passageId: "p4",
+                q: "Q18: (Passage 4 - Career Path) Transferable skills include:",
+                options: ["Communication", "Memorization", "Sleeping", "Copying"],
+                answer: "Communication",
+                explanation: "المهارات القابلة للنقل (Transferable skills) تشمل التواصل وحل المشكلات والقدرة على التكيف."
+            },
+            {
+                id: 59,
+                q: "Q19: Commands used to retrieve or manipulate data in a database are:",
+                options: ["Queries", "Layers", "Functions", "Scams"],
+                answer: "Queries",
+                explanation: "الاستعلامات (Queries) هي الأوامر المستخدمة لاسترجاع أو معالجة البيانات داخل قواعد البيانات."
+            },
+            {
+                id: 60,
+                q: "Q20: Unauthorized access to secure systems or data is known as:",
+                options: ["Breaches", "Logins", "Outputs", "Models"],
+                answer: "Breaches",
+                explanation: "الاختراقات الأمنية (Breaches) تعني الوصول غير المصرح به إلى الأنظمة أو البيانات المحمية."
+            }
+        ]
+    };
+
+    // متغيرات حالة التطبيق
+    let studentName = "";
+    let selectedExamId = null;
+    let currentQuestions = [];
+    let userAnswers = {};
+    let currentIndex = 0;
+    let timerInterval = null;
+    let timeRemaining = 20 * 60;
+    const TOTAL_TIME = 20 * 60;
+    let isPassageOpen = false;
+
+    // عناصر الواجهة
+    const startView = document.getElementById("start-view");
+    const quizView = document.getElementById("quiz-view");
+    const resultView = document.getElementById("result-view");
+
+    const studentNameInput = document.getElementById("student-name");
+    const examCards = document.querySelectorAll(".exam-card");
+    const startBtn = document.getElementById("start-btn");
+    const nameError = document.getElementById("name-error");
+    const examError = document.getElementById("exam-error");
+
+    const displayNameEl = document.getElementById("display-name");
+    const displayExamTitleEl = document.getElementById("display-exam-title");
+    const timerBox = document.getElementById("timer-box");
+    const timerDisplay = document.getElementById("timer-display");
+    const currentQNumEl = document.getElementById("current-q-num");
+    const answeredCountEl = document.getElementById("answered-count");
+    const progressFill = document.getElementById("progress-fill");
+    const questionDotsEl = document.getElementById("question-dots");
+    const questionTextEl = document.getElementById("question-text");
+    const optionsListEl = document.getElementById("options-list");
+
+    // عناصر قطعة الفهم
+    const passageWrapper = document.getElementById("passage-wrapper");
+    const passageToggleBtn = document.getElementById("passage-toggle-btn");
+    const passageBtnLabel = document.getElementById("passage-btn-label");
+    const passageArrow = document.getElementById("passage-arrow");
+    const passageContent = document.getElementById("passage-content");
+
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const submitBtn = document.getElementById("submit-btn");
+
+    const confirmModal = document.getElementById("confirm-modal");
+    const confirmYes = document.getElementById("confirm-yes");
+    const confirmNo = document.getElementById("confirm-no");
+    const restartBtn = document.getElementById("restart-btn");
+
+    // زر فتح وإغلاق قطعة الفهم
+    passageToggleBtn.addEventListener("click", () => {
+        isPassageOpen = !isPassageOpen;
+        updatePassageVisibility();
+    });
+
+    function updatePassageVisibility() {
+        if (isPassageOpen) {
+            passageContent.classList.add("open");
+            passageToggleBtn.classList.add("open");
+            passageBtnLabel.textContent = "📕 اضغط هنا لإخفاء قطعة الفهم";
+            passageArrow.textContent = "▲";
+        } else {
+            passageContent.classList.remove("open");
+            passageToggleBtn.classList.remove("open");
+            passageBtnLabel.textContent = "📖 اضغط هنا لعرض قطعة الفهم (Reading Passage)";
+            passageArrow.textContent = "▼";
+        }
+    }
+
+    // دالة خلط المصفوفات عشوائياً
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // اختيار بطاقة الاختبار
+    examCards.forEach(card => {
+        card.addEventListener("click", () => {
+            examCards.forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            selectedExamId = card.getAttribute("data-exam");
+            examError.style.display = "none";
+        });
+    });
+
+    studentNameInput.addEventListener("input", () => {
+        if (studentNameInput.value.trim() !== "") {
+            nameError.style.display = "none";
+        }
+    });
+
+    // بدء الاختبار
+    startBtn.addEventListener("click", () => {
+        studentName = studentNameInput.value.trim();
+        let valid = true;
+
+        if (!studentName) {
+            nameError.style.display = "block";
+            valid = false;
+        }
+        if (!selectedExamId) {
+            examError.style.display = "block";
+            valid = false;
+        }
+        if (!valid) return;
+
+        initQuiz();
+    });
+
+    function initQuiz() {
+        const rawQuestions = questionBank[selectedExamId];
+        currentQuestions = shuffleArray(rawQuestions).map(item => ({
+            ...item,
+            shuffledOptions: shuffleArray(item.options)
+        }));
+
+        userAnswers = {};
+        currentIndex = 0;
+        timeRemaining = TOTAL_TIME;
+        isPassageOpen = false;
+
+        displayNameEl.textContent = studentName;
+        const examNames = {
+            "1": "الاختبار الأول (Either & Neither)",
+            "2": "الاختبار الثاني (Tenses & Sentences)",
+            "3": "الاختبار الثالث (Tech Terms & Reading)"
+        };
+        displayExamTitleEl.textContent = examNames[selectedExamId];
+
+        switchView(quizView);
+        renderDots();
+        renderQuestion();
+        startTimer();
+    }
+
+    function switchView(targetView) {
+        [startView, quizView, resultView].forEach(v => v.classList.remove("active"));
+        targetView.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // المؤقت الزمني
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerBox.classList.remove("warning");
+        updateTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            updateTimerDisplay();
+
+            if (timeRemaining <= 120) {
+                timerBox.classList.add("warning");
+            }
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                finishQuiz(true);
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const mins = Math.floor(timeRemaining / 60);
+        const secs = timeRemaining % 60;
+        timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // رسم أزرار التنقل السريع بين الأسئلة
+    function renderDots() {
+        questionDotsEl.innerHTML = "";
+        currentQuestions.forEach((_, idx) => {
+            const dot = document.createElement("button");
+            dot.className = "q-dot";
+            dot.textContent = idx + 1;
+            if (idx === currentIndex) dot.classList.add("active");
+            if (userAnswers[idx] !== undefined) dot.classList.add("answered");
+
+            dot.addEventListener("click", () => {
+                currentIndex = idx;
+                renderQuestion();
+            });
+            questionDotsEl.appendChild(dot);
+        });
+    }
+
+    // عرض السؤال الحالي وقطعة الفهم المرتبطة به إن وجدت
+    function renderQuestion() {
+        const qObj = currentQuestions[currentIndex];
+        const cleanQuestionText = qObj.q.replace(/^Q\d+:\s*/i, "");
+        questionTextEl.textContent = `${currentIndex + 1}. ${cleanQuestionText}`;
+
+        // إظهار أو إخفاء زر قطعة الفهم حسب السؤال الحالي
+        if (qObj.passageId && readingPassages[qObj.passageId]) {
+            passageWrapper.style.display = "block";
+            passageContent.innerHTML = readingPassages[qObj.passageId].html;
+            updatePassageVisibility();
+        } else {
+            passageWrapper.style.display = "none";
+        }
+
+        const letters = ["A", "B", "C", "D"];
+        optionsListEl.innerHTML = "";
+
+        qObj.shuffledOptions.forEach((optText, i) => {
+            const optDiv = document.createElement("div");
+            optDiv.className = "option-item";
+            if (userAnswers[currentIndex] === optText) {
+                optDiv.classList.add("selected");
+            }
+
+            optDiv.innerHTML = `
+                <span class="option-letter">${letters[i]}</span>
+                <span>${optText}</span>
+            `;
+
+            optDiv.addEventListener("click", () => {
+                userAnswers[currentIndex] = optText;
+                renderQuestion();
+            });
+
+            optionsListEl.appendChild(optDiv);
+        });
+
+        currentQNumEl.textContent = currentIndex + 1;
+        const answeredCount = Object.keys(userAnswers).length;
+        answeredCountEl.textContent = answeredCount;
+        progressFill.style.width = `${((currentIndex + 1) / currentQuestions.length) * 100}%`;
+
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === currentQuestions.length - 1;
+
+        renderDots();
+    }
+
+    prevBtn.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+        }
+    });
+
+    nextBtn.addEventListener("click", () => {
+        if (currentIndex < currentQuestions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        }
+    });
+
+    // نافذة تأكيد التسليم
+    submitBtn.addEventListener("click", () => {
+        const unanswered = currentQuestions.length - Object.keys(userAnswers).length;
+        const modalMsg = document.getElementById("modal-message");
+        if (unanswered > 0) {
+            modalMsg.textContent = `تنبيه: لا يزال لديك (${unanswered}) سؤال لم تقم بالإجابة عليه. هل أنت متأكد من تسليم الاختبار الآن؟`;
+        } else {
+            modalMsg.textContent = "لقد أجبت على جميع الأسئلة. هل تريد إنهاء الاختبار وعرض النتيجة؟";
+        }
+        confirmModal.classList.add("active");
+    });
+
+    confirmNo.addEventListener("click", () => {
+        confirmModal.classList.remove("active");
+    });
+
+    confirmYes.addEventListener("click", () => {
+        confirmModal.classList.remove("active");
+        finishQuiz(false);
+    });
+
+    // إنهاء الاختبار وحساب النتيجة وإرسالها لـ Google Sheets
+    function finishQuiz(isAutoSubmit) {
+        clearInterval(timerInterval);
+
+        let correctCount = 0;
+        const mistakes = [];
+
+        currentQuestions.forEach((qObj, idx) => {
+            const studentAns = userAnswers[idx];
+            if (studentAns === qObj.answer) {
+                correctCount++;
+            } else {
+                mistakes.push({
+                    question: qObj.q.replace(/^Q\d+:\s*/i, ""),
+                    userAnswer: studentAns || "لم يتم اختيار إجابة (متروك)",
+                    correctAnswer: qObj.answer,
+                    explanation: qObj.explanation
+                });
+            }
+        });
+
+        const total = currentQuestions.length;
+        const wrongCount = total - correctCount;
+        const percentage = Math.round((correctCount / total) * 100);
+        const passed = percentage >= 60;
+
+        const spentSeconds = TOTAL_TIME - timeRemaining;
+        const spentMins = Math.floor(spentSeconds / 60);
+        const spentSecs = spentSeconds % 60;
+        const formattedSpent = `${String(spentMins).padStart(2, '0')}:${String(spentSecs).padStart(2, '0')}`;
+
+        const badge = document.getElementById("pass-fail-badge");
+        if (passed) {
+            badge.textContent = isAutoSubmit ? "انتهى الوقت - ناجح 🎉" : "تهانينا! لقد اجتزت الاختبار بنجاح 🎉";
+            badge.className = "status-badge status-pass";
+        } else {
+            badge.textContent = isAutoSubmit ? "انتهى الوقت - راسب" : "للأسف، لم تجتز الاختبار (راسب)";
+            badge.className = "status-badge status-fail";
+        }
+
+        const examNames = {
+            "1": "الاختبار الأول (English - Either/Neither)",
+            "2": "الاختبار الثاني (English - Tenses/Sentences)",
+            "3": "الاختبار الثالث (English - Tech/Reading)"
+        };
+        document.getElementById("result-student-name").textContent = `الطالب: ${studentName}`;
+        document.getElementById("result-exam-name").textContent = examNames[selectedExamId];
+        document.getElementById("final-score").textContent = correctCount;
+        document.getElementById("final-percentage").textContent = `${percentage}%`;
+        document.getElementById("stat-correct").textContent = correctCount;
+        document.getElementById("stat-wrong").textContent = wrongCount;
+        document.getElementById("stat-time").textContent = formattedSpent;
+
+        const mistakesContainer = document.getElementById("mistakes-container");
+        mistakesContainer.innerHTML = "";
+
+        if (mistakes.length === 0) {
+            mistakesContainer.innerHTML = `
+                <div class="perfect-score-box">
+                    🌟 أداء استثنائي! لقد أجبت على جميع الأسئلة الـ 20 بشكل صحيح دون أي أخطاء.
+                </div>
+            `;
+        } else {
+            mistakes.forEach((m, index) => {
+                const card = document.createElement("div");
+                card.className = "mistake-card";
+                card.innerHTML = `
+                    <div class="mistake-q">${index + 1}. ${m.question}</div>
+                    <div class="answer-row answer-wrong">
+                        <strong>إجابتك المختارة:</strong>
+                        <span class="answer-text-en">${m.userAnswer}</span>
+                    </div>
+                    <div class="answer-row answer-correct">
+                        <strong>الإجابة الصحيحة:</strong>
+                        <span class="answer-text-en">${m.correctAnswer}</span>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>💡 التوضيح القواعدي / العلمي:</strong> ${m.explanation}
+                    </div>
+                `;
+                mistakesContainer.appendChild(card);
+            });
+        }
+
+        // إرسال النتيجة تلقائياً إلى Google Sheets
+        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "ضع_الرابط_الذي_نسخته_هنا") {
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    studentName: studentName,
+                    examName: examNames[selectedExamId],
+                    score: correctCount,
+                    percentage: percentage,
+                    timeSpent: formattedSpent
+                })
+            }).catch(err => console.error("Error saving result:", err));
+        }
+
+        switchView(resultView);
+    }
+
+    restartBtn.addEventListener("click", () => {
+        switchView(startView);
+    });
+</script>
+
+</body>
+</html>
