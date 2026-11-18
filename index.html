@@ -689,14 +689,14 @@
             <label>اختر نموذج الاختبار المطلوب:</label>
             <div class="exams-grid">
                 <div class="exam-card" data-exam="1">
-                    <h3>الاختبار الأول</h3>
-                    <p>قواعد Either & Neither بجميع حالاتها وتطبيقاتها</p>
-                    <span>20 سؤالاً / 20 دقيقة</span>
+                    <h3>الاختبار الأول (Grammar)</h3>
+                    <p>قواعد Either...or و Neither...nor والمضارع البسيط والماضي البسيط</p>
+                    <span>25 سؤالاً / 25 دقيقة</span>
                 </div>
                 <div class="exam-card" data-exam="2">
-                    <h3>الاختبار الثاني</h3>
-                    <p>قطع الفهم (Reading Passages) والمصطلحات التقنية</p>
-                    <span>25 سؤالاً / 25 دقيقة</span>
+                    <h3>الاختبار الثاني (Passages)</h3>
+                    <p>اختبار قطع الفهم الأربع المقررة بالكتاب (Reading Comprehension)</p>
+                    <span>24 سؤالاً / 25 دقيقة</span>
                 </div>
             </div>
             <div id="exam-error" class="error-msg">يرجى اختيار أحد الاختبارين للمتابعة.</div>
@@ -713,14 +713,14 @@
             </div>
             <div class="timer-box" id="timer-box">
                 <span>⏱ الوقت المتبقي:</span>
-                <span id="timer-display">20:00</span>
+                <span id="timer-display">25:00</span>
             </div>
         </div>
 
         <div class="progress-wrapper">
             <div class="progress-info">
-                <span>السؤال <span id="current-q-num">1</span> من <span id="total-q-num">20</span></span>
-                <span>تمت الإجابة على: <span id="answered-count">0</span> / <span id="total-q-num-2">20</span></span>
+                <span>السؤال <span id="current-q-num">1</span> من <span id="total-q-num">25</span></span>
+                <span>تمت الإجابة على: <span id="answered-count">0</span> / <span id="total-q-num-2">25</span></span>
             </div>
             <div class="progress-track">
                 <div class="progress-fill" id="progress-fill"></div>
@@ -755,7 +755,7 @@
             <div id="pass-fail-badge" class="status-badge"></div>
             <h2 id="result-student-name" style="margin-bottom: 6px;"></h2>
             <p id="result-exam-name" style="color: var(--text-muted);"></p>
-            <div class="score-circle"><span id="final-score">0</span> / <span id="result-total-q">20</span></div>
+            <div class="score-circle"><span id="final-score">0</span> / <span id="result-total-q">25</span></div>
             <p style="font-weight: 700; font-size: 1.2rem; color: var(--primary);">
                 النسبة المئوية: <span id="final-percentage">0%</span>
             </p>
@@ -821,154 +821,196 @@
         }
     };
 
-    // بنك الأسئلة المعتمد (الاختبار الأول: Either/Neither، الاختبار الثاني: Passages & Tech Terms)
+    // بنك الأسئلة المعتمد:
+    // الاختبار 1: Grammar (Either...or, Neither...nor, Present Simple, Past Simple)
+    // الاختبار 2: Passages Only (جميع أسئلة قطع الفهم الأربعة)
     const questionBank = {
         1: [
+            // --- أولاً: قاعدة Either ... or و Neither ... nor (13 سؤالاً) ---
             {
                 id: 1,
-                q: "Q1: You can _____ buy RAM or an SSD.",
+                q: "You can _____ buy RAM or an SSD.",
                 options: ["either", "neither", "both", "nor"],
                 answer: "either",
                 explanation: "نستخدم تركيب (either ... or) للتخيير الإيجابي بين بديلين."
             },
             {
                 id: 2,
-                q: "Q2: Either of the laptops _____ algorithms fast.",
+                q: "Either of the laptops _____ algorithms fast.",
                 options: ["runs", "run", "running", "are running"],
                 answer: "runs",
                 explanation: "بعد (Either of + اسم جمع) يأتي الفعل دائماً في صيغة المفرد (runs) لأن المقصود هو أحد الجهازين فقط."
             },
             {
                 id: 3,
-                q: "Q3: A: I don't like slow CPUs. B: I don't like them _____.",
+                q: "A: I don't like slow CPUs. B: I don't like them _____.",
                 options: ["either", "neither", "too", "also"],
                 answer: "either",
                 explanation: "للموافقة على جملة منفية في نهاية الجملة نستخدم (either) ولا نستخدم (too)."
             },
             {
                 id: 4,
-                q: "Q4: Install either an antivirus _____ a firewall.",
+                q: "Install either an antivirus _____ a firewall.",
                 options: ["or", "nor", "and", "but"],
                 answer: "or",
                 explanation: "أداة الربط التي تكمل (either) هي (or)."
             },
             {
                 id: 5,
-                q: "Q5: Either of the tools _____ phishing.",
+                q: "Either of the tools _____ phishing.",
                 options: ["blocks", "block", "blocking", "have blocked"],
                 answer: "blocks",
                 explanation: "التركيب (Either of + plural noun) يتبعه فعل مفرد (blocks)."
             },
             {
                 id: 6,
-                q: "Q6: I like neither vague _____ short prompts.",
+                q: "I like neither vague _____ short prompts.",
                 options: ["nor", "or", "and", "neither"],
                 answer: "nor",
                 explanation: "نستخدم (neither ... nor) لنفي البديلين معاً."
             },
             {
                 id: 7,
-                q: "Q7: Neither of the examples _____ coders.",
+                q: "Neither of the examples _____ coders.",
                 options: ["helps", "help", "helping", "are helping"],
                 answer: "helps",
                 explanation: "بعد (Neither of + اسم جمع) يأتي الفعل مفرداً (helps) في اللغة الإنجليزية القياسية."
             },
             {
                 id: 8,
-                q: "Q8: A: I don't like bad prompts. B: _____ do I.",
+                q: "A: I don't like bad prompts. B: _____ do I.",
                 options: ["Neither", "Either", "So", "Too"],
                 answer: "Neither",
                 explanation: "للموافقة المختصرة على جملة منفية نستخدم (Neither + فعل مساعد + فاعل) مثل: Neither do I."
             },
             {
                 id: 9,
-                q: "Q9: Neither AI model _____ ethical yet.",
+                q: "Neither AI model _____ ethical yet.",
                 options: ["is", "are", "were", "be"],
                 answer: "is",
                 explanation: "بعد (Neither + اسم مفرد) يجب استخدام فعل مفرد (is)."
             },
             {
                 id: 10,
-                q: "Q10: Neither of the servers _____ big data.",
+                q: "Neither of the servers _____ big data.",
                 options: ["handles", "handle", "handling", "have handled"],
                 answer: "handles",
                 explanation: "بعد (Neither of + plural noun) نختار الفعل المفرد (handles)."
             },
             {
                 id: 11,
-                q: "Q11: A: I can't use this program. B: Neither _____ I.",
+                q: "A: I can't use this program. B: Neither _____ I.",
                 options: ["can", "do", "am", "have"],
                 answer: "can",
                 explanation: "في الرد بـ (Neither) نكرر نفس الفعل المساعد الموجود في الجملة الأولى وهو هنا (can)."
             },
             {
                 id: 12,
-                q: "Q12: A: I haven't tested the software. B: Neither _____ I.",
-                options: ["have", "do", "can", "did"],
-                answer: "have",
-                explanation: "نكرر الفعل المساعد (have) المستخدم في زمن المضارع التام المنفي في الجملة الأولى."
-            },
-            {
-                id: 13,
-                q: "Q13: Which response is grammatically INCORRECT?",
+                q: "Which response is grammatically INCORRECT?",
                 options: ["Neither I do.", "Neither do I.", "I don't like them either.", "Neither can they."],
                 answer: "Neither I do.",
                 explanation: "الصيغة الصحيحة هي تقديم الفعل المساعد على الفاعل (Neither do I) وليس (Neither I do)."
             },
             {
-                id: 14,
-                q: "Q14: Neither database _____ perfectly.",
-                options: ["fits", "fit", "fitting", "are fitting"],
-                answer: "fits",
-                explanation: "الاسم (database) مفرد بعد (Neither)، لذا يأخذ الفعل (fits)."
-            },
-            {
-                id: 15,
-                q: "Q15: He uses _____ SQL nor NoSQL alone.",
+                id: 13,
+                q: "He uses _____ SQL nor NoSQL alone.",
                 options: ["neither", "either", "both", "not"],
                 answer: "neither",
                 explanation: "وجود (nor) في الجملة يستلزم استخدام (neither) قبل البديل الأول."
             },
+
+            // --- ثانياً: المضارع البسيط Present Simple (6 أسئلة) ---
+            {
+                id: 14,
+                q: "The computer usually _____ data on the hard drive.",
+                options: ["stores", "store", "stored", "storing"],
+                answer: "stores",
+                explanation: "وجود كلمة (usually) يدل على عادة متكررة في المضارع البسيط، ومع الفاعل المفرد (The computer) نضيف (s) للفعل ليصبح (stores)."
+            },
+            {
+                id: 15,
+                q: "A CPU _____ instructions.",
+                options: ["processes", "process", "processed", "processing"],
+                answer: "processes",
+                explanation: "تُستخدم صيغة المضارع البسيط (processes) لوصف الوظائف والحقائق العلمية الثابتة للأجهزة."
+            },
             {
                 id: 16,
-                q: "Q16: I don't like computer viruses. Neither do _____.",
-                options: ["I", "me", "my", "mine"],
-                answer: "I",
-                explanation: "بعد الفعل المساعد في (Neither do ...) نستخدم ضمير الفاعل (I) وليس ضمير المفعول (me)."
+                q: "HTML _____ the structure of a web page.",
+                options: ["defines", "define", "defined", "defining"],
+                answer: "defines",
+                explanation: "حقيقة تقنية ثابتة تُعبر عنها بصيغة المضارع البسيط (defines) مع الفاعل المفرد."
             },
             {
                 id: 17,
-                q: "Q17: Neither of them _____ reliable.",
-                options: ["is", "are", "were", "be"],
-                answer: "is",
-                explanation: "حتى مع الضمير الجمع (them) بعد (Neither of)، يظل الفعل مفرداً (is)."
+                q: "The program _____ not use much memory.",
+                options: ["does", "do", "did", "is"],
+                answer: "does",
+                explanation: "في نفي المضارع البسيط مع الفاعل المفرد (The program) نستخدم (does not + مصدر الفعل)."
             },
             {
                 id: 18,
-                q: "Q18: Either of the two programs _____ on Linux.",
-                options: ["works", "work", "working", "have worked"],
-                answer: "works",
-                explanation: "التركيب (Either of + اسم جمع) يشير إلى برنامج واحد من الاثنين، فيأخذ الفعل المفرد (works)."
+                q: "_____ the application support Linux?",
+                options: ["Does", "Do", "Did", "Is"],
+                answer: "Does",
+                explanation: "للسؤال في المضارع البسيط عن حقيقة تقنية مع فاعل مفرد (the application) نستخدم الفعل المساعد (Does) متبوعاً بمصدر الفعل (support)."
             },
             {
                 id: 19,
-                q: "Q19: Neither scan _____ all viruses.",
-                options: ["catches", "catch", "catching", "are catching"],
-                answer: "catches",
-                explanation: "الاسم (scan) مفرد بعد (Neither)، لذلك نضيف (es) للفعل في المضارع البسيط ليصبح (catches)."
+                q: "We _____ the software every week.",
+                options: ["test", "tests", "tested", "testing"],
+                answer: "test",
+                explanation: "عبارة (every week) من علامات المضارع البسيط، ومع الفاعل الجمع (We) نستخدم مصدر الفعل بدون إضافات (test)."
             },
+
+            // --- ثالثاً: الماضي البسيط Past Simple (6 أسئلة) ---
             {
                 id: 20,
-                q: "Q20: A: I don't use cloud storage. B: I don't use it _____.",
-                options: ["either", "neither", "too", "so"],
-                answer: "either",
-                explanation: "في نهاية الجملة المنفية نستخدم (either) للتعبير عن المشاركة في النفي."
+                q: "We _____ a website last year.",
+                options: ["developed", "develop", "develops", "developing"],
+                answer: "developed",
+                explanation: "عبارة (last year) تدل على حدث انتهى في الماضي، فنستخدم الماضي البسيط (developed)."
+            },
+            {
+                id: 21,
+                q: "The programmer _____ the error yesterday.",
+                options: ["fixed", "fix", "fixes", "fixing"],
+                answer: "fixed",
+                explanation: "وجود كلمة (yesterday) يدل على الماضي البسيط (fixed)."
+            },
+            {
+                id: 22,
+                q: "Did you _____ the software yesterday?",
+                options: ["install", "installed", "installs", "installing"],
+                answer: "install",
+                explanation: "بعد الفعل المساعد (Did) في السؤال يأتي الفعل دائماً في المصدر بدون أي إضافات (install)."
+            },
+            {
+                id: 23,
+                q: "The programmer _____ find the error yesterday.",
+                options: ["did not", "does not", "do not", "not"],
+                answer: "did not",
+                explanation: "وجود كلمة (yesterday) مع الفعل في المصدر (find) يتطلب النفي في الماضي البسيط باستخدام (did not)."
+            },
+            {
+                id: 24,
+                q: "The developer _____ the code two days ago.",
+                options: ["wrote", "write", "writes", "written"],
+                answer: "wrote",
+                explanation: "عبارة (two days ago) من علامات الماضي البسيط، والفعل (write) فعل شاذ ماضيه البسيط هو (wrote)."
+            },
+            {
+                id: 25,
+                q: "The company _____ a new application in 2025.",
+                options: ["released", "release", "releases", "releasing"],
+                answer: "released",
+                explanation: "تحديد سنة ماضية (in 2025) يدل على حدث مكتمل في الماضي البسيط (released)."
             }
         ],
         2: [
-            // أسئلة القطعة الأولى: University Study Skills (5 أسئلة)
+            // --- أسئلة القطعة الأولى: University Study Skills (6 أسئلة) ---
             {
-                id: 21,
+                id: 26,
                 passageKey: "p1",
                 q: "According to Passage 1, the passage mainly discusses:",
                 options: ["University study skills", "University exams", "School teaching methods", "Online learning"],
@@ -976,7 +1018,7 @@
                 explanation: "الفكرة الرئيسية للقطعة الأولى تدور حول مهارات الدراسة الجامعية الأساسية مثل إدارة الوقت والقراءة الأكاديمية."
             },
             {
-                id: 22,
+                id: 27,
                 passageKey: "p1",
                 q: "According to Passage 1, university students are expected to:",
                 options: ["Be independent learners", "Depend completely on lecturers", "Study only before exams", "Avoid academic reading"],
@@ -984,7 +1026,15 @@
                 explanation: "ورد في الفقرة الأولى: (students are expected to become independent learners) أي متعلمين مستقلين."
             },
             {
-                id: 23,
+                id: 28,
+                passageKey: "p1",
+                q: "According to Passage 1, time management is important because:",
+                options: ["Students have many academic tasks", "Lectures are short", "Exams are easy", "Lecturers plan students' time"],
+                answer: "Students have many academic tasks",
+                explanation: "إدارة الوقت مهمة لأن الطلاب لديهم مهام أكاديمية متعددة مثل المحاضرات والتكليفات والقراءة والمراجعة."
+            },
+            {
+                id: 29,
                 passageKey: "p1",
                 q: "According to Passage 1, students who perform better academically usually:",
                 options: ["Create a weekly schedule", "Study without a plan", "Skip lectures", "Avoid assignments"],
@@ -992,7 +1042,7 @@
                 explanation: "الطلاب الذين يضعون جدولاً دراسياً أسبوعياً يحققون أداءً أكاديمياً أفضل."
             },
             {
-                id: 24,
+                id: 30,
                 passageKey: "p1",
                 q: "According to Passage 1, skimming helps students to:",
                 options: ["Get main ideas", "Memorize every word", "Find grammar mistakes", "Translate texts"],
@@ -1000,7 +1050,7 @@
                 explanation: "القراءة السريعة العابرة (Skimming) تهدف إلى استخلاص الأفكار الرئيسية للنص دون قراءة كل كلمة."
             },
             {
-                id: 25,
+                id: 31,
                 passageKey: "p1",
                 q: "According to Passage 1, taking notes while reading helps students to:",
                 options: ["Understand and remember information", "Finish quickly", "Avoid reading", "Copy the text"],
@@ -1008,9 +1058,9 @@
                 explanation: "تدوين الملاحظات أثناء القراءة يساعد على فهم المعلومات وتذكرها بفعالية أكبر."
             },
 
-            // أسئلة القطعة الثانية: Group Work at University (5 أسئلة)
+            // --- أسئلة القطعة الثانية: Group Work at University (6 أسئلة) ---
             {
-                id: 26,
+                id: 32,
                 passageKey: "p2",
                 q: "According to Passage 2, group work helps students develop:",
                 options: ["Academic and social skills", "Only academic skills", "Only social skills", "Physical skills"],
@@ -1018,7 +1068,7 @@
                 explanation: "العمل الجماعي يطور كلاً من المهارات الأكاديمية والاجتماعية اللازمة للمستقبل المهني."
             },
             {
-                id: 27,
+                id: 33,
                 passageKey: "p2",
                 q: "According to Passage 2, one advantage of group work is:",
                 options: ["Sharing ideas and knowledge", "Less responsibility", "No deadlines", "Less effort"],
@@ -1026,7 +1076,15 @@
                 explanation: "من مميزات العمل الجماعي تبادل الأفكار والمعرفة بين أعضاء الفريق."
             },
             {
-                id: 28,
+                id: 34,
+                passageKey: "p2",
+                q: "According to Passage 2, different strengths among students can:",
+                options: ["Improve final work", "Reduce project quality", "Cause conflict", "Delay submission"],
+                answer: "Improve final work",
+                explanation: "تنوع مهارات ونقاط قوة الطلاب يؤدي إلى إنتاج عمل نهائي ذي جودة أعلى."
+            },
+            {
+                id: 35,
                 passageKey: "p2",
                 q: "According to Passage 2, a challenge of group work is:",
                 options: ["Unequal contribution", "Too much time", "Easy tasks", "No deadlines"],
@@ -1034,7 +1092,7 @@
                 explanation: "أحد التحديات المذكورة هو عدم تساوي مساهمة الطلاب (Unequal contribution) أو سيطرة البعض على النقاش."
             },
             {
-                id: 29,
+                id: 36,
                 passageKey: "p2",
                 q: "According to Passage 2, setting roles at the beginning helps to:",
                 options: ["Ensure fairness", "Confuse members", "Reduce quality", "Delay work"],
@@ -1042,7 +1100,7 @@
                 explanation: "تحديد الأدوار والمسؤوليات في بداية المشروع يساعد على ضمان العدالة بين الجميع."
             },
             {
-                id: 30,
+                id: 37,
                 passageKey: "p2",
                 q: "According to Passage 2, group work prepares students for:",
                 options: ["The workplace", "Exams only", "School life", "University lectures"],
@@ -1050,9 +1108,17 @@
                 explanation: "العمل الجماعي يؤهل الطلاب لبيئة العمل المستقبلية (The workplace) التي تتطلب التعاون وحل المشكلات."
             },
 
-            // أسئلة القطعة الثالثة: Technology in University Learning (5 أسئلة)
+            // --- أسئلة القطعة الثالثة: Technology in University Learning (6 أسئلة) ---
             {
-                id: 31,
+                id: 38,
+                passageKey: "p3",
+                q: "According to Passage 3, online platforms allow students to:",
+                options: ["Download lecture notes", "Play games", "Avoid assignments", "Skip classes"],
+                answer: "Download lecture notes",
+                explanation: "المنصات الإلكترونية تتيح للطلاب تحميل ملاحظات المحاضرات وتسليم التكليفات والتواصل مع المحاضرين."
+            },
+            {
+                id: 39,
                 passageKey: "p3",
                 q: "According to Passage 3, flexibility means students can:",
                 options: ["Study anytime", "Avoid learning", "Ignore deadlines", "Cancel lectures"],
@@ -1060,7 +1126,7 @@
                 explanation: "المرونة (Flexibility) تعني أن الطلاب يمكنهم الدراسة بالسرعة التي تناسبهم ومراجعة المحاضرات في أي وقت."
             },
             {
-                id: 32,
+                id: 40,
                 passageKey: "p3",
                 q: "According to Passage 3, recorded lectures help students to:",
                 options: ["Revise content", "Sleep", "Avoid attendance", "Cheat"],
@@ -1068,7 +1134,7 @@
                 explanation: "المحاضرات المسجلة تتيح للطلاب مراجعة المحتوى الدراسي متى احتاجوا إلى ذلك."
             },
             {
-                id: 33,
+                id: 41,
                 passageKey: "p3",
                 q: "According to Passage 3, a challenge of technology is:",
                 options: ["Online distraction", "Easy access", "Better communication", "Improved learning"],
@@ -1076,7 +1142,7 @@
                 explanation: "من تحديات التكنولوجيا تشتت الانتباه عبر مواقع التواصل الاجتماعي والترفيه أثناء وقت الدراسة."
             },
             {
-                id: 34,
+                id: 42,
                 passageKey: "p3",
                 q: "According to Passage 3, digital literacy helps students to:",
                 options: ["Evaluate sources", "Waste time", "Avoid technology", "Ignore rules"],
@@ -1084,7 +1150,7 @@
                 explanation: "المعرفة الرقمية (Digital literacy) تساعد الطلاب على تقييم المصادر الإلكترونية وإدارة وقتهم."
             },
             {
-                id: 35,
+                id: 43,
                 passageKey: "p3",
                 q: "According to Passage 3, academic integrity refers to:",
                 options: ["Honesty in study", "Cheating", "Speed of learning", "Online access"],
@@ -1092,9 +1158,17 @@
                 explanation: "النزاهة الأكاديمية (Academic integrity) تعني الأمانة العلمية والصدق في الدراسة."
             },
 
-            // أسئلة القطعة الرابعة: Choosing a Career Path (5 أسئلة)
+            // --- أسئلة القطعة الرابعة: Choosing a Career Path (6 أسئلة) ---
             {
-                id: 36,
+                id: 44,
+                passageKey: "p4",
+                q: "According to Passage 4, students often feel uncertain about:",
+                options: ["Their future careers", "Their lecturers", "Their grades", "Their classmates"],
+                answer: "Their future careers",
+                explanation: "يشعر العديد من الطلاب بعدم اليقين والقلق بشأن مسارهم المهني المستقبلي خاصة عند اقتراب التخرج."
+            },
+            {
+                id: 45,
                 passageKey: "p4",
                 q: "According to Passage 4, internships help students to:",
                 options: ["Gain practical experience", "Avoid work", "Earn high salaries", "Skip university"],
@@ -1102,7 +1176,7 @@
                 explanation: "التدريب العملي (Internships) يساعد الطلاب على اكتساب خبرة عملية وفهم متطلبات سوق العمل."
             },
             {
-                id: 37,
+                id: 46,
                 passageKey: "p4",
                 q: "According to Passage 4, career guidance centers help students to:",
                 options: ["Make informed decisions", "Find exams", "Choose courses", "Avoid graduation"],
@@ -1110,7 +1184,7 @@
                 explanation: "مراكز التوجيه المهني بالجامعات تساعد الطلاب على اتخاذ قرارات مدروسة ومبنية على المعرفة."
             },
             {
-                id: 38,
+                id: 47,
                 passageKey: "p4",
                 q: "According to Passage 4, financial factors are described as:",
                 options: ["Important but not enough alone", "Unimportant", "The only factor", "Dangerous"],
@@ -1118,7 +1192,7 @@
                 explanation: "العوامل المالية مهمة، ولكن لا ينبغي أن تكون الاعتبار الوحيد عند اختيار المسار المهني."
             },
             {
-                id: 39,
+                id: 48,
                 passageKey: "p4",
                 q: "According to Passage 4, transferable skills include:",
                 options: ["Communication", "Memorization", "Sleeping", "Copying"],
@@ -1126,49 +1200,12 @@
                 explanation: "المهارات القابلة للنقل (Transferable skills) تشمل التواصل وحل المشكلات والقدرة على التكيف."
             },
             {
-                id: 40,
+                id: 49,
                 passageKey: "p4",
                 q: "According to Passage 4, the writer encourages students to be:",
                 options: ["Flexible", "Rigid", "Careless", "Fearful"],
                 answer: "Flexible",
                 explanation: "في ظل تغير سوق العمل المستمر، يشجع الكاتب الطلاب على التحلي بالمرونة (Flexible)."
-            },
-
-            // أسئلة المصطلحات التقنية الأساسية من المقرر (5 أسئلة)
-            {
-                id: 41,
-                q: "A step-by-step procedure for solving problems in programming is called an:",
-                options: ["Algorithm", "Antivirus", "Hardware", "Output"],
-                answer: "Algorithm",
-                explanation: "الخوارزمية (Algorithm) هي خطوات متسلسلة ومنطقية لحل مشكلة برمجية أو أداء مهمة."
-            },
-            {
-                id: 42,
-                q: "Temporary storage for data that the CPU needs quickly is:",
-                options: ["RAM", "SSD", "Firewall", "Database"],
-                answer: "RAM",
-                explanation: "ذاكرة الوصول العشوائي (RAM) هي الذاكرة المؤقتة السريعة التي يعتمد عليها المعالج أثناء التشغيل."
-            },
-            {
-                id: 43,
-                q: "Security system that monitors and controls network traffic is a:",
-                options: ["Firewall", "Phishing", "Malware", "Spam"],
-                answer: "Firewall",
-                explanation: "جدار الحماية (Firewall) هو النظام الأمني الذي يراقب حركة البيانات الواردة والصادرة عبر الشبكة ويتحكم فيها."
-            },
-            {
-                id: 44,
-                q: "Fraudulent attempts to obtain sensitive information via fake emails or sites is:",
-                options: ["Phishing", "Backup", "Cloud computing", "Debugging"],
-                answer: "Phishing",
-                explanation: "التصيد الاحتيالي (Phishing) هو محاولة خداع المستخدمين عبر رسائل أو مواقع مزيفة لسرقة بياناتهم الحساسة."
-            },
-            {
-                id: 45,
-                q: "Input instructions given to AI models to generate specific outputs are called:",
-                options: ["Prompts", "Bugs", "Loops", "Breaches"],
-                answer: "Prompts",
-                explanation: "المطالبات أو التعليمات (Prompts) هي الأوامر النصية التي يكتبها المستخدم لتوجيه نماذج الذكاء الاصطناعي."
             }
         ]
     };
@@ -1180,8 +1217,8 @@
     let userAnswers = {};
     let currentIndex = 0;
     let timerInterval = null;
-    let totalTimeSeconds = 20 * 60;
-    let timeRemaining = 20 * 60;
+    let totalTimeSeconds = 25 * 60;
+    let timeRemaining = 25 * 60;
 
     // عناصر الواجهة
     const startView = document.getElementById("start-view");
@@ -1277,13 +1314,13 @@
 
         userAnswers = {};
         currentIndex = 0;
-        totalTimeSeconds = currentQuestions.length * 60; // دقيقة لكل سؤال
+        totalTimeSeconds = 25 * 60;
         timeRemaining = totalTimeSeconds;
 
         displayNameEl.textContent = studentName;
         const examNames = {
-            "1": "الاختبار الأول (Either & Neither)",
-            "2": "الاختبار الثاني (Passages & Tech Terms)"
+            "1": "الاختبار الأول (Grammar: Either/Neither & Simple Tenses)",
+            "2": "الاختبار الثاني (Reading Passages Only)"
         };
         displayExamTitleEl.textContent = examNames[selectedExamId];
         totalQNumEl.textContent = currentQuestions.length;
@@ -1472,8 +1509,8 @@
         }
 
         const examNames = {
-            "1": "الاختبار الأول (English - Either/Neither)",
-            "2": "الاختبار الثاني (English - Reading Passages & Tech)"
+            "1": "الاختبار الأول (Grammar: Either/Neither & Simple Tenses)",
+            "2": "الاختبار الثاني (Reading Passages Only)"
         };
         document.getElementById("result-student-name").textContent = `الطالب: ${studentName}`;
         document.getElementById("result-exam-name").textContent = examNames[selectedExamId];
